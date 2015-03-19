@@ -37,13 +37,40 @@ section, footer, header, aside{
 	display: block;
 }
 
+button{
+	cursor:pointer;
+	width: 40px;
+	height: 40px;
+	margin: 0px 0px;
+	margin: 5px 5px;
+	text-align:center;
+	vertical-align:middle;
+	background-color:#f0b051;
+	border-radius: 5px;
+}
+
+button:active{
+	background-color:#BF883C;
+}
+
+button:after{
+	background-color:#f0b051;
+}
+
 /*========Menu=============*/
 
 #menu{
+	/* just a container for the menu items. */
+	position: absolute;
 	width: 100%;
+	height: 100%;
+	z-index:  4;
+}
+
+#menu #menu-bar{
+	/* The actual menu */
 	height: 60px;
 	background-color: #000000;
-	z-index:  4;
 }
 
 #menu div.menu-div{
@@ -77,6 +104,63 @@ section, footer, header, aside{
 	margin: 0;
 	transition: all .3s ease-out;
 }
+
+/* menu options */
+
+#menu div#menu-options{
+	width: 60%;
+    left: -60%;
+    height: 350px;
+}
+
+#menu div#menu-options.open{
+    left: 0px;
+}
+
+#menu div#menu-options .options ul{
+	width: 100%;
+	height: 100%;
+	padding: 30% 12% 20% 7%;
+}
+
+
+#menu div#menu-options .options li{
+	cursor:pointer;
+	width: 90%;
+	height: 50px;
+	margin: 10px 10px;
+	padding: 10px 10px;
+	text-align:center;
+	vertical-align:middle;
+	background-color:#000000;
+	list-style-type: none;
+	border-radius: 5px;
+}
+
+#menu div#menu-options .options li a{
+	color: #FFFFFF
+}
+
+/*   menu profile   */
+
+#menu div#menu-profile{
+    height: 100%;
+}
+
+#menu div#menu-profile{
+	width: 100%;
+    right: -100%;
+}
+
+#menu div#menu-profile.open{
+    right: 0px;
+}
+
+#menu div#menu-profile .profile{
+    height: 100%;
+}
+
+/* Toggle icons for both */
 
 #menu div.toggle{
 	width: 60px;
@@ -117,25 +201,7 @@ section, footer, header, aside{
     height: 90px;
 }
 
-#menu div#menu-options{
-	width: 60%;
-    left: -60%;
-    height: 350px;
-}
-
-#menu div#menu-options.open{
-    left: 0px;
-}
-
-#menu div#menu-profile{
-	width: 100%;
-    right: -100%;
-}
-
-#menu div#menu-profile.open{
-    right: 0px;
-}
-
+/* toggle buttons */
 #menu div.toggle button{
 	cursor:pointer;
 	width: 40px;
@@ -157,28 +223,63 @@ section, footer, header, aside{
 	float: left;
 }
 
-#menu div#menu-options .options ul{
+/*=======================================*/
+
+.popup-page{
+	position: absolute;
+	background-color: #ffffff;
+	box-sizing: border-box;
+	opacity: 1;
+	position:fixed;
+	text-align:center;
+	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
+}
+
+#start-page{
 	width: 100%;
 	height: 100%;
-	padding: 30% 12% 20% 7%;
+	border-radius: 0;
 }
 
-
-#menu div#menu-options .options li{
-	cursor:pointer;
-	width: 90%;
-	height: 50px;
-	margin: 10px 10px;
-	padding: 10px 10px;
-	text-align:center;
-	vertical-align:middle;
-	background-color:#000000;
-	list-style-type: none;
-	border-radius: 5px;
+#type-page{
+	width: 80%;
+	height: 250px;
+	border-radius: 4px;
+	margin-left: -40%;
+	left: 50%;
+	bottom: 10%;
 }
 
-#menu div#menu-options .options li a{
-	color: #FFFFFF
+#type-overlay{
+	opacity: 1;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 6;
+	position:fixed;
+	transition: all .28s cubic-bezier(.4,0,.2,1);
+}
+
+#type-overlay.hidden{
+	opacity: 0;
+}
+
+.popup-page .options .option{
+	margin: 9% 0;
+}
+
+.popup-page .option button, .popup-page .option h4{
+	display:  inline-block;
+}
+
+/*=======================================*/
+
+#pages{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
 }
 
 

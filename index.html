@@ -8,7 +8,13 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- styles -->
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <link rel="stylesheet" href="assets/css/all.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/start.css" />
+    <link rel="stylesheet" href="assets/css/list.css" />
+    <link rel="stylesheet" href="assets/css/trails.css" />
+    <link rel="stylesheet" href="assets/css/location.css" />
 
     <!--bower components -->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
@@ -35,8 +41,10 @@
   <body>
     <nav id="menu">
 
-        <div id="menu-title" class="menu-div">
-            <h3>1:00</h3>
+        <div id="menu-bar">
+            <div id="menu-title" class="menu-div">
+                <h3>1:00</h3>
+            </div>
         </div>
 
         <div class="overlay">
@@ -68,9 +76,39 @@
         </div>
     </nav>
 
-  <div ng-app='main'>
-    <div ng-view></div>
-  <div> 
+    <div id="start-page" class="popup-page hidden">
+        <div id="start-options">
+            <h2>Sort by:</h2>
+                <div class="start-option">
+                    <button></button>
+                    <h4>Catalogue</h4>
+                </div>
+                <div class="start-option">
+                    <button></button>
+                    <h4>Location</h4>
+                </div>
+        </div>
+    </div>
+
+    <div id="type-overlay" class="overlay hidden">
+        <div id="type-page" class="popup-page">
+            <h2>Sort by:</h2>
+            <div class="options">
+                <div class="option">
+                    <button></button>
+                    <h4>Catalogue</h4>
+                </div>
+                <div class="option">
+                    <button></button>
+                    <h4>Location</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <div ng-app='main' id="pages">
+        <div ng-view></div>
+      <div> 
     
   </body>
 
