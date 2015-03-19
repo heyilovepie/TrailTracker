@@ -3,8 +3,8 @@
 		"name":"Quarry Rock",
 		"id":"quarryrock",
 		"km":"3.8",
-		"hours" :"1.5"
-		"location":"coodinates"
+		"hours" :"1.5",
+		"location":"coodinates",
 		"options":[
 			{"name": "hike"}
 		]
@@ -13,8 +13,8 @@
 		"name":"Grouse Grind",
 		"id":"grousegrind",
 		"km":"2.9",
-		"hours":"1.75"
-		"location":"coodinates"
+		"hours":"1.75",
+		"location":"coodinates",
 		"options":[
 			{"name": "hike"}
 		]
@@ -23,11 +23,11 @@
 		"name":"Rice Lake",
 		"id":"ricelake",
 		"km":"3",
-		"hours":"1"
-		"location":"coodinates"
+		"hours":"1",
+		"location":"coodinates",
 		"options":[
-			{"name": "hike"}
-			{"name": "run"}
+			{"name": "hike"},
+			{"name": "run"},
 			{"name": "walk"}
 		]
 	}

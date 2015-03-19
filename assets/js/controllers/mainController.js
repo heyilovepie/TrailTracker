@@ -1,7 +1,7 @@
 main.controller('mainController', function($scope, $routeParams, dataProvider){
-  dataProvider.getData(function(err, data){
-      if(!err){
-        $scope.data = data;
+  	dataProvider.getData(function(err, data){
+      if(!err && main.data == undefined){
+        	main.data = data;
     	}
     });
 });

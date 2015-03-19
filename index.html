@@ -41,8 +41,8 @@
             </div>
             <div class="options">
                 <ul>
-                    <li><a href="#home">New Route</a></li>
-                    <li id="delete-route"><a href="#news">Delete Route</a></li>
+                    <li id="new-route"><a ng-click="newRoute()">New Route</a></li>
+                    <li id="delete-route"><a ng-click="deleteRoute()">Delete Route</a></li>
                 </ul>
             </div>
         </div>
@@ -64,7 +64,6 @@
             </div>
         </div>
     </nav>
-
 
   <div ng-app='main'>
     <div ng-view></div>

@@ -43,7 +43,7 @@ section, footer, header, aside{
 	width: 100%;
 	height: 60px;
 	background-color: #000000;
-	z-index:  5;
+	z-index:  4;
 }
 
 #menu div.menu-div{
@@ -52,7 +52,6 @@ section, footer, header, aside{
 	top: 0px;
 	height: 100%;
 	width: 10%;
-	background-color: #51F0Ba;
 	margin: 0 40%;
 }
 
@@ -67,11 +66,12 @@ section, footer, header, aside{
 	position: absolute;
 	top: 0px;
 	height: 100%;
-	width: 40%;
+	width: 50%;
 	background-color: #51F0B0;
 	border-width: 2px;
 	margin: 0;
 	transition: all .3s ease-out;
+	z-index:  5;
 }
 
 #menu div.toggle{
@@ -81,7 +81,7 @@ section, footer, header, aside{
 }
 
 #menu div#menu-options{
-    left: -1%;
+    left: -50%;
 }
 
 #menu div#menu-options.open{
@@ -89,7 +89,7 @@ section, footer, header, aside{
 }
 
 #menu div#menu-profile{
-    right: -1%;
+    right: -50%;
 }
 
 #menu div#menu-profile.open{
@@ -112,14 +112,27 @@ section, footer, header, aside{
 #menu div .toggle{
     background-color: #51F0Ba;
     position: relative;
+    transition: all .3s ease-out;
 }
 
 #menu div#menu-options .toggle{
     right: -50px;
+    float: right;
 }
 
 #menu div#menu-profile .toggle{
     left: -50px;
+    float: left;
+}
+
+#menu div#menu-options .toggle .open{
+    right: 0px;
+    float: right;
+}
+
+#menu div#menu-profile .toggle .open{
+    left: 0px;
+    float: left;
 }
 
 #menu div#menu-options .options li{
