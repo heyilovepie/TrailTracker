@@ -6,6 +6,10 @@ main.config(function ($routeProvider) {
       templateUrl: 'assets/pages/main.html',
       controller : 'mainController'
     })
+    .when('/start', {
+      templateUrl: 'assets/pages/start.html',
+      controller : 'startController'
+    })
     .when('/list', {
       templateUrl: 'assets/pages/list.html',
       controller : 'listController'
