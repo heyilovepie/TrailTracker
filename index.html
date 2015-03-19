@@ -33,34 +33,37 @@
 
   <body>
     <nav id="menu">
-        <div id="menu-options" class="menu-toggle">
-            <div class="toggle">
-                <button class="menuButton">
-                    <i class="fa fa-bars"></i>
-                </button>
-            </div>
-            <div class="options">
-                <ul>
-                    <li id="new-route"><a ng-click="newRoute()">New Route</a></li>
-                    <li id="delete-route"><a ng-click="deleteRoute()">Delete Route</a></li>
-                </ul>
-            </div>
-        </div>
 
         <div id="menu-title" class="menu-div">
             <h3>1:00</h3>
         </div>
 
-        <div id="menu-profile" class="menu-toggle">
-            <div class="toggle">
-                <button class="menuButton">
-                    <i class="fa fa-bars"></i>
-                </button>
+        <div class="overlay">
+            <div id="menu-options" class="menu-toggle">
+                <div class="toggle">
+                    <button class="menuButton">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <div class="options">
+                    <ul>
+                        <li id="new-route"><a ng-click="newRoute()">New Route</a></li>
+                        <li id="delete-route"><a ng-click="deleteRoute()">Delete Route</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="profile">
 
-                <h4>Name</h4>
-                <h4>ICON</h4>
+            <div id="menu-profile" class="menu-toggle">
+                <div class="toggle">
+                    <button class="menuButton">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+                <div class="profile">
+
+                    <h4>Name</h4>
+                    <h4>ICON</h4>
+                </div>
             </div>
         </div>
     </nav>

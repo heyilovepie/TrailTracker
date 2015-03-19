@@ -9,20 +9,15 @@ $(function(){
 	});
 
 	overlay.click(function(e){
-		if($(e.target).is(overlay)){
-			$(this).children().toggleClass("open");
+		if($(e.target).is(overlay)){ //if you've clicked on the overlay part (not the menu)
+			var target = $(this).children("#menu-options");
+			for(var i = 0; i < 2; i++){ //loop twice each with  a different target
+				if(target.hasClass("open")){ 
+					target.removeClass("open");
+					target.children(".toggle").removeClass("open");
+				}
+				target = $(this).children("#menu-profile");
+			}	
 		}
 	})
-/*
-		dialog_p.click(function(e){
-		// When the overlay is clicked, hide the dialog_p.
-		if($(e.target).is('.overlay')){
-			// This check is need to prevent
-			// bubbled up events from hiding the dialog
-			dialog_p.trigger('hide');
-		}
-	});
-*/
-
-
 });
