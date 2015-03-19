@@ -43,17 +43,78 @@ section, footer, header, aside{
 	width: 100%;
 	height: 60px;
 	background-color: #000000;
+	z-index:  5;
 }
 
 #menu div.menu-div{
+	position: relative;
 	display: inline-block;
+	top: 0px;
 	height: 100%;
 	width: 10%;
-	background-color: #51F0B0;
-	margin: 0 10%;
+	background-color: #51F0Ba;
+	margin: 0 40%;
 }
 
-#menu div button{
+#menu #menu-title  h3{
+	margin: 0px 0px;
+	padding: 17px 0px;
+	text-align:center;
+	vertical-align:middle;
+}
+
+#menu div.menu-toggle{
+	position: absolute;
+	top: 0px;
+	height: 100%;
+	width: 40%;
+	background-color: #51F0B0;
+	border-width: 2px;
+	margin: 0;
+}
+
+#menu div#menu-options{
+    left: -1%;
+}
+
+#menu div#menu-options.open{
+    left: 0px;
+}
+
+#menu div#menu-profile{
+    right: -1%;
+}
+
+#menu div#menu-profile.open{
+    right: 0px;
+}
+
+#menu div.toggle button{
+	cursor:pointer;
+	width: 40px;
+	height: 40px;
+	margin: 0px 0px;
+	margin: 5px 5px;
+	text-align:center;
+	vertical-align:middle;
 	background-color:#f0b051;
+}
+
+#menu div#menu-options .toggle button{
+    right: 0%;
+    background-color:#20b055;
+
+}
+
+#menu div#menu-options .options li{
+	cursor:pointer;
+	width: 100px;
+	height: 30px;
+	margin: 0px 0px;
+	margin: 5px 5px;
+	text-align:center;
+	vertical-align:middle;
+	background-color:#000000;
+	color: #ffffff;
 }
 

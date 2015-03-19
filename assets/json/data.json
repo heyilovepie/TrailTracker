@@ -1,46 +1,34 @@
 [
 	{
-		"name":"Eyes",
-		"id":"eye",
-		"colour":"blue",
+		"name":"Quarry Rock",
+		"id":"quarryrock",
+		"km":"3.8",
+		"hours" :"1.5"
+		"location":"coodinates"
 		"options":[
-			{"name": "blue"},
-			{"name": "black"},
-			{"name": "brown"},
-			{"name": "green"}
+			{"name": "hike"}
 		]
 	},
 	{
-		"name":"Hair",
-		"id":"hair",
-		"colour":"brown",
+		"name":"Grouse Grind",
+		"id":"grousegrind",
+		"km":"2.9",
+		"hours":"1.75"
+		"location":"coodinates"
 		"options":[
-			{"name": "blonde"},
-			{"name": "black"},
-			{"name": "brown"},
-			{"name": "red"}
+			{"name": "hike"}
 		]
 	},
 	{
-		"name":"Shirt",
-		"id":"shirt",
-		"colour":"white",
+		"name":"Rice Lake",
+		"id":"ricelake",
+		"km":"3",
+		"hours":"1"
+		"location":"coodinates"
 		"options":[
-			{"name": "black"},
-			{"name": "blue"},
-			{"name": "green"},
-			{"name": "red"}
-		]
-	},
-	{
-		"name":"Pants",
-		"id":"pants",
-		"colour":"grey",
-		"options":[
-			{"name": "grey"},
-			{"name": "blue"},
-			{"name": "white"},
-			{"name": "red"}
+			{"name": "hike"}
+			{"name": "run"}
+			{"name": "walk"}
 		]
 	}
 ]
