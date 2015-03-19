@@ -71,6 +71,13 @@ section, footer, header, aside{
 	background-color: #51F0B0;
 	border-width: 2px;
 	margin: 0;
+	transition: all .3s ease-out;
+}
+
+#menu div.toggle{
+	width: 60px;
+	height: 60px;
+	background-color: #51F0B0;
 }
 
 #menu div#menu-options{
@@ -100,10 +107,19 @@ section, footer, header, aside{
 	background-color:#f0b051;
 }
 
-#menu div#menu-options .toggle button{
-    right: 0%;
-    background-color:#20b055;
 
+
+#menu div .toggle{
+    background-color: #51F0Ba;
+    position: relative;
+}
+
+#menu div#menu-options .toggle{
+    right: -50px;
+}
+
+#menu div#menu-profile .toggle{
+    left: -50px;
 }
 
 #menu div#menu-options .options li{
