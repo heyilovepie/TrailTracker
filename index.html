@@ -12,20 +12,50 @@
 
     <!--bower components -->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/hammer.js/hammer.min.js"></script>
     <script type="text/javascript" src="bower_components/velocity/velocity.min.js"></script>
 
     <!-- scripts -->
     <script type="text/javascript" src="assets/js/script.js"></script>
+    <script type="text/javascript" src="assets/js/configure.js"></script>
 
+    <!--providers -->
+    <script type="text/javascript" src="assets/js/providers/dataProvider.js"></script>
+
+    <!--controllers-->
+    <script type="text/javascript" src="assets/js/controllers/mainController.js"></script>
+    <script type="text/javascript" src="assets/js/controllers/listController.js"></script>
+    <script type="text/javascript" src="assets/js/controllers/trailController.js"></script>
+    <script type="text/javascript" src="assets/js/controllers/locationController.js"></script>
   </head>
-  <!--
 
-  <body ng-app='myApp'>
+  <body>
+    <div id="menu">
+        <div id="menu-options" class="menu-div">
+            <!--
+            <button class="menuButton" >
+                <i class="fa fa-bars"></i>
+            </button>
+            -->
+        </div>
+        <div id="menu-title" class="menu-div">
+        </div>
+        <div id="menu-profile" class="menu-div">
+            <!--
+            <a href="#/beers" id="beerLink">
+                <span>Beers</span>
+            </a>
+        -->
+        </div>
+    </div>
+
+
+  <div ng-app='main'>
     <div ng-view></div>
+  <div> 
+    
   </body>
-
--->
 
 </html>
