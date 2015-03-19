@@ -18,7 +18,7 @@ main.config(function ($routeProvider) {
       templateUrl: 'assets/pages/trails.html',
       controller : 'trailController'
     })
-    .when('/location/:step', {
+    .when('/location', {
       templateUrl: 'assets/pages/location.html',
       controller : 'locationController'
     })
