@@ -107,7 +107,13 @@ section, footer, header, aside{
 	background-color:#f0b051;
 }
 
+#menu #menu-options button{
+	float: right;
+}
 
+#menu #menu-profile button{
+	float: left;
+}
 
 #menu div .toggle{
     background-color: #51F0Ba;
@@ -120,17 +126,17 @@ section, footer, header, aside{
     float: right;
 }
 
+#menu div#menu-options .toggle.open{
+    right: 0px;
+    float: right;
+}
+
 #menu div#menu-profile .toggle{
     left: -50px;
     float: left;
 }
 
-#menu div#menu-options .toggle .open{
-    right: 0px;
-    float: right;
-}
-
-#menu div#menu-profile .toggle .open{
+#menu div#menu-profile .toggle.open{
     left: 0px;
     float: left;
 }
