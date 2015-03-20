@@ -145,9 +145,6 @@ button:after{
 
 #menu div#menu-profile{
     height: 100%;
-}
-
-#menu div#menu-profile{
 	width: 100%;
     right: -100%;
 }
@@ -156,8 +153,13 @@ button:after{
     right: 0px;
 }
 
-#menu div#menu-profile .profile{
+#menu #menu-profile .profile{
     height: 100%;
+    overflow: hidden;
+}
+#menu #menu-profile.open .profile{
+    height: 100%;
+    overflow: visible;
 }
 
 /* Toggle icons for both */
@@ -286,5 +288,14 @@ button:after{
 	height: 100%;
 	top:0;
 }
+
+#pages .ng-scope{
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	top:0;
+}
+
+
 
 
