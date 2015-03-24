@@ -147,6 +147,7 @@ button:after{
     height: 100%;
 	width: 100%;
     right: -100%;
+    overflow: hidden;
 }
 
 #menu div#menu-profile.open{
@@ -294,8 +295,30 @@ button:after{
 	width: 100%;
 	height: 100%;
 	top:0;
+	z-index:-1;
 }
 
+/*=============MAP=============*/
 
+#vancouverMap {
+	width: 50%;
+	height: 200px;
+	background: #3d4e5b;
+	left: 50%;
+	margin-top: 70px;
+	margin-left: -25%;
+	position: absolute;
+	z-index: 3;
+	-moz-transition: 	width .28s cubic-bezier(.4,0,.2,1);
+	-webkit-transition: width .28s cubic-bezier(.4,0,.2,1);
+	transition: 		width .28s cubic-bezier(.4,0,.2,1);
+}
 
+.map-container {
+	width: 100%;
+	height: 100%;
+	display: block;
+	overflow: hidden;
+	background: #3d4e5b;
+}
 

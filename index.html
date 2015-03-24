@@ -23,9 +23,13 @@
     <script type="text/javascript" src="bower_components/hammer.js/hammer.min.js"></script>
     <script type="text/javascript" src="bower_components/velocity/velocity.min.js"></script>
 
+    <script src='http://maps.googleapis.com/maps/api/js?sensor=true'></script>
+    <script type="text/javascript" src="bower_components/gmaps.js/gmaps.js"></script>
+
     <!-- scripts -->
     <script type="text/javascript" src="assets/js/script.js"></script>
     <script type="text/javascript" src="assets/js/configure.js"></script>
+    <script type="text/javascript" src="assets/js/angular-maps.js"></script>
 
     <!--providers -->
     <script type="text/javascript" src="assets/js/providers/dataProvider.js"></script>
@@ -39,7 +43,7 @@
   </head>
 
   <body>
-
+<!--
     <nav id="menu">
 
         <div id="menu-bar">
@@ -76,6 +80,12 @@
             </div>
         </div>
     </nav>
+-->
+    <div id="vancouverMap" >
+        <div class="map-container">
+            <div id = "map" style="width: 100%;height: 100%"></div>
+        </div>
+    </div>
 
     <div id="start-page" class="popup-page hidden">
         <div id="start-options">
