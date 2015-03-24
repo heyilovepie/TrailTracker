@@ -27,6 +27,7 @@
 html, body {
     font:15px/1.3 Arial, sans-serif;
 	z-index:1;	
+	overflow: hidden
 }
 
 a:hover{
@@ -108,8 +109,10 @@ button:after{
 }
 
 /* #menu #options */
-#menu #options .catch{
+#menu .catch{
 	position: absolute;
+	background-color: #f0b051;
+	opacity: .5;
 	top: 0px;
 	width: 100%;
 	height: 100%;
@@ -245,6 +248,7 @@ button:after{
 	position:fixed;
 	text-align:center;
 	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
+	z-index: 6;
 }
 
 #start-page{
@@ -262,18 +266,18 @@ button:after{
 	bottom: 10%;
 }
 
-#type-overlay{
+.catch.type{
 	opacity: 1;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	z-index: 6;
+	z-index: 5;
 	position:fixed;
 	transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 
-#type-overlay.hidden{
+.catch.type.hidden{
 	opacity: 0;
 }
 
@@ -309,25 +313,16 @@ button:after{
 
 /*=============MAP=============*/
 
-#vancouverMap {
-	width: 50%;
+.map-container {
+	width: 100%;
 	height: 200px;
 	background: #3d4e5b;
-	left: 50%;
-	margin-top: 70px;
-	margin-left: -25%;
+	margin-top: 60px; /*against the menu*/
 	position: absolute;
 	z-index: 2;
 	-moz-transition: 	width .28s cubic-bezier(.4,0,.2,1);
 	-webkit-transition: width .28s cubic-bezier(.4,0,.2,1);
 	transition: 		width .28s cubic-bezier(.4,0,.2,1);
-}
-
-.map-container {
-	width: 100%;
-	height: 100%;
 	display: block;
-	overflow: hidden;
-	background: #3d4e5b;
 }
 

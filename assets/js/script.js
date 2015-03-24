@@ -1,220 +1,56 @@
 $(function(){
 	var 
+        menuOptions = $("#menu #menu-options"),
+        menuProfile = $("#menu #menu-profile"),
 		menuOptionsToggle = $('#menu #menu-options .toggle button'),
         menuProfileToggle = $('#menu #toggle-profile button'),
-		menuCatch = $('#menu #options .catch'),
-		optionsOverlay = $('#type-overlay'),
+		menuCatch = $('#menu .catch'),
+        typeCatch = $('.type.catch'),
 		newRoute = $('#new-route'),
-		optionsPopup = $("#type-page"),
-		optionsPopup_p = optionsPopup.parent(),
-		menuOptions = $("#menu-options");
+		optionsPopup = $("#type-page");
 
     ////////// MENU ////////////////////
 
 	menuOptionsToggle.click(function(e){
-		$(this).parent().toggleClass("open");
-		$(this).parent().parent().toggleClass("open");
-        menuCatch.removeClass("hidden");
+		menuOptions.trigger('switch');
 	});
 
     menuProfileToggle.click(function(e){
-        console.log("dhfasdfs");
-        $("#menu #menu-profile").toggleClass("open");
+        menuProfile.toggleClass("open");
     });
 
 	menuCatch.click(function(e){
-		if($(e.target).is(menuCatch)){ //if you've clicked on the overlay part (not the menu)
-			if(menuOptions.hasClass("open")){ 
-				menuOptions.removeClass("open");
-				menuOptions.children(".toggle").removeClass("open");
-			}
-		}
+        menuOptions.trigger('hide');
 	});
+
+    menuOptions.on('hide',function(){
+        menuOptions.removeClass("open");
+        menuOptions.children().removeClass("open");
+        menuCatch.addClass("hidden");
+    }).on('show',function(){
+        menuOptions.addClass("open");
+        menuOptions.children().addClass("open");
+        menuCatch.removeClass("hidden");
+    }).on('switch',function(){
+        menuOptions.toggleClass("open");
+        menuOptions.children().toggleClass("open");
+        menuCatch.toggleClass("hidden");
+    });
 
     //////// POPUPS ////////////////////
-
-	optionsOverlay.click(function(e){
-		if($(e.target).is(optionsOverlay)){ //if you've clicked on the overlay part (not the menu)
-			$(this).toggleClass("hidden");
-		}
-	});
-
 	newRoute.click(function(){
-		optionsPopup_p.toggleClass("hidden");
-		menuOptions.removeClass("open");
-		menuOptions.children(".toggle").removeClass("open");
+		typeCatch.removeClass("hidden");
+		menuOptions.trigger("hide");
 	});
 
-	$(".options button").click(function(){
-		optionsPopup_p.toggleClass("hidden");
+	$("#type-page .options button").click(function(){
+		typeCatch.addClass("hidden");
 	});
-});
 
-var bwStyles = [
-    {
-        "featureType": "all",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "saturation": 26
-            },
-            {
-                "color": "#425260"
-            },
-            {
-                "lightness": 0
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "administrative.province",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 65
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 51
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 30
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "road.local",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 40
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": [
-            {
-                "hue": "#ffff00"
-            },
-            {
-                "lightness": -25
-            },
-            {
-                "saturation": -97
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "lightness": -25
-            },
-            {
-                "saturation": -100
-            }
-        ]
-    }
-]
-
-$(document).ready(function(){
-    var map = new GMaps({
-        div: '#map',
-        lat: 49.2764031, 
-        lng: -123.0979068,
-        zoom: 11,
-        options: {
-            scrollwheel: false,
-            navigationControl: false,
-            mapTypeControl: false,
-            disableDefaultUI: true,
-            styles: bwStyles
-        },
-        click: function(e){
-            alert("yeahhhh")
+    typeCatch.click(function(e){
+        if($(e.target).is(typeCatch)){
+            typeCatch.addClass("hidden");
         }
     });
 });
+

@@ -19,17 +19,17 @@
     <!--bower components -->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/js/angular-maps.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/hammer.js/hammer.min.js"></script>
     <script type="text/javascript" src="bower_components/velocity/velocity.min.js"></script>
-
     <script src='http://maps.googleapis.com/maps/api/js?sensor=true'></script>
     <script type="text/javascript" src="bower_components/gmaps.js/gmaps.js"></script>
 
     <!-- scripts -->
     <script type="text/javascript" src="assets/js/script.js"></script>
+    <script type="text/javascript" src="assets/js/map.js"></script>
     <script type="text/javascript" src="assets/js/configure.js"></script>
-    <script type="text/javascript" src="assets/js/angular-maps.js"></script>
 
     <!--providers -->
     <script type="text/javascript" src="assets/js/providers/dataProvider.js"></script>
@@ -49,6 +49,7 @@
     <div> 
 
     <nav id="menu">
+        <div class="catch menu-component hidden"></div>
 
         <div id="menu-bar" class="menu-component">
             <div id="menu-title">
@@ -57,7 +58,6 @@
         </div>
 
         <div id="options">
-            <div class="catch menu-component hidden"></div>
 
             <div id="menu-options" class="menu-toggle menu-component">
                 <div class="toggle">
@@ -89,10 +89,8 @@
         </div> <!-- end of profile -->
     </nav> <!-- end of menu -->
 
-    <div id="vancouverMap" >
-        <div class="map-container">
-            <div id = "map" style="width: 100%;height: 100%"></div>
-        </div>
+    <div class="map-container">
+        <div id = "map" style="width: 100%;height: 100%"></div>
     </div>
 
     <div id="start-page" class="popup-page hidden">
@@ -109,7 +107,7 @@
         </div>
     </div> <!-- end of start page -->
 
-    <div id="type-overlay" class="overlay hidden">
+    <div class="catch type hidden">
         <div id="type-page" class="popup-page">
             <h2>Sort by:</h2>
             <div class="options">
@@ -122,8 +120,8 @@
                     <h4>Location</h4>
                 </div>
             </div>
-        </div>
-    </div>    
+        </div> <!-- end of type page -->
+    </div> <!-- end of catch page -->
   </body>
 
 </html>
