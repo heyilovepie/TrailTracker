@@ -184,24 +184,23 @@ button:after{
     float: right;
 }
 
-#menu div#menu-profile .toggle{
-    left: -50px;
-    float: left;
+#menu #toggle-profile{
+    right: 0;
+    top:0;
+    float: right;
     transition: all .3 ease-out;
+    position: absolute;
 }
 
-#menu div#menu-profile .toggle.open{
-    left: 100%;
-    width: 0;
-    height: 0;
-    padding: 0px;
+#menu #toggle-profile.open{
 }
 
-#menu div#menu-profile .toggle.open button{
-    margin-left: -115px;
+#menu #toggle-profile.open button{
+    margin-right: 15px;
     margin-top: 15px;
     width: 90px;
     height: 90px;
+    transition: all .3 ease-out;
 }
 
 /* toggle buttons */
@@ -215,7 +214,6 @@ button:after{
 	vertical-align:middle;
 	background-color:#f0b051;
 	border-radius: 5px;
-	z-index: 6;
 }
 
 #menu #menu-options button{
@@ -224,6 +222,7 @@ button:after{
 
 #menu #menu-profile button{
 	float: left;
+	z-index: 6;
 }
 
 /*=======================================*/

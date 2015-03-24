@@ -1,6 +1,7 @@
 $(function(){
 	var 
-		menuToggle = $('#menu div.toggle button'),
+		menuOptionsToggle = $('#menu #menu-options .toggle button'),
+        menuProfileToggle = $('#menu #toggle-profile button'),
 		menuOverlay = $('#menu .overlay'),
 		optionsOverlay = $('#type-overlay'),
 		newRoute = $('#new-route'),
@@ -8,10 +9,16 @@ $(function(){
 		optionsPopup_p = optionsPopup.parent(),
 		menuOptions = $("#menu-options");
 
-	menuToggle.click(function(e){
+	menuOptionsToggle.click(function(e){
 		$(this).parent().toggleClass("open");
 		$(this).parent().parent().toggleClass("open");
+        //optionsOverlay.addClass("hidden");
 	});
+
+    menuProfileToggle.click(function(e){
+        console.log("dhfasdfs");
+        $("#menu #menu-profile").toggleClass("open");
+    });
 
 	menuOverlay.click(function(e){
 		if($(e.target).is(menuOverlay)){ //if you've clicked on the overlay part (not the menu)
