@@ -9,19 +9,26 @@ $(function(){
 		newRoute = $('#new-route'),
 		optionsPopup = $("#type-page");
 
-    ////////// MENU ////////////////////
+    /*==========================================
+                    CLICKING
+    ============================================*/
 
+    ////////// MENU ////////////////////
 	menuOptionsToggle.click(function(e){
 		menuOptions.trigger('switch');
 	});
 
-    menuProfileToggle.click(function(e){
-        menuProfile.toggleClass("open");
+    menuCatch.click(function(e){
+        menuOptions.trigger('hide');
     });
 
-	menuCatch.click(function(e){
-        menuOptions.trigger('hide');
-	});
+    menuProfileToggle.click(function(e){
+        menuProfile.toggleClass("open");
+        menuProfileToggle.parent().toggleClass("open");
+        setTimeout(function(){
+                menuProfileToggle.toggleClass("open");
+        }, 125);
+    });
 
     menuOptions.on('hide',function(){
         menuOptions.removeClass("open");
@@ -52,5 +59,29 @@ $(function(){
             typeCatch.addClass("hidden");
         }
     });
+
+    /*==========================================
+                    CLICKING
+    ============================================*/
+    /*
+    var menuOptionsH = new Hammer(menuOptions, { multiUser: true });
+    menuOptionsH.get('swipe').set({enable:true});
+    menuOptionsH.on('swipe', function(ev){
+        ev.preventDefault();
+        menuProfile.toggleClass("open");
+    });
+    */
+
+    function addHammer(el) {
+        var mc = new Hammer(el, { multiUser: true });
+        mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        mc.get('pinch').set({ enable: true });
+        mc.get('rotate').set({ enable: true });
+
+        mc.on("swipe pan press pinch rotate tap doubletap", function (ev) {
+            ev.preventDefault();
+        });
+    }
 });
 

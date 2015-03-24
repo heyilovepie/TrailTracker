@@ -58,6 +58,12 @@ button:after{
 	background-color:#f0b051;
 }
 
+button a{
+	width: 100%;
+	height: 100%;
+
+}
+
 /*========Menu=============*/
 
 #menu{
@@ -106,6 +112,8 @@ button:after{
 	background-color: #51F0B0;
 	margin: 0;
 	transition: all .3s ease-out;
+	border: 2px;
+	border-style: solid;
 }
 
 /* #menu #options */
@@ -159,6 +167,7 @@ button:after{
     height: 100%;
 	width: 100%;
     right: -100%;
+    padding: 0 10%;
     overflow: hidden;
 }
 
@@ -175,11 +184,20 @@ button:after{
     height: 100%;
 }
 
+#menu #menu-profile .profile .title{
+    height: 60px;
+    top: 0;
+}
+
+#menu #menu-profile .profile .title h1{
+    margin-top: 10px;
+}
+
 /* Toggle icons for both */
 
 #menu .toggle{
 	width: 60px;
-	height: 60px;
+	height: 55px;
 	background-color: #51F0B0;
 	border-radius: 5px;
     position: relative;
@@ -197,27 +215,28 @@ button:after{
 }
 
 #menu #toggle-profile{
-    right: -10px;
-    top:0;
+    right: -12px;
+    top:2px;
     float: right;
     transition: all .3 ease-out;
     position: absolute;
 }
 
 #menu #toggle-profile.open{
-	display: none;
+	right: 110px;
+	top: 8px;
+	width: 0;
+	height: 0;
 }
 
-#menu #toggle-profile.open button{
-    margin-right: 15px;
-    margin-top: 15px;
+#menu #toggle-profile button.open{
     width: 90px;
     height: 90px;
     transition: all .3 ease-out;
 }
 
 /* toggle buttons */
-#menu div.toggle button{
+#menu .toggle button{
 	cursor:pointer;
 	width: 40px;
 	height: 40px;
@@ -263,7 +282,7 @@ button:after{
 	border-radius: 4px;
 	margin-left: -40%;
 	left: 50%;
-	bottom: 10%;
+	bottom: 7%;
 }
 
 .catch.type{
