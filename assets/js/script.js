@@ -2,17 +2,19 @@ $(function(){
 	var 
 		menuOptionsToggle = $('#menu #menu-options .toggle button'),
         menuProfileToggle = $('#menu #toggle-profile button'),
-		menuOverlay = $('#menu .overlay'),
+		menuCatch = $('#menu #options .catch'),
 		optionsOverlay = $('#type-overlay'),
 		newRoute = $('#new-route'),
 		optionsPopup = $("#type-page"),
 		optionsPopup_p = optionsPopup.parent(),
 		menuOptions = $("#menu-options");
 
+    ////////// MENU ////////////////////
+
 	menuOptionsToggle.click(function(e){
 		$(this).parent().toggleClass("open");
 		$(this).parent().parent().toggleClass("open");
-        //optionsOverlay.addClass("hidden");
+        menuCatch.removeClass("hidden");
 	});
 
     menuProfileToggle.click(function(e){
@@ -20,15 +22,16 @@ $(function(){
         $("#menu #menu-profile").toggleClass("open");
     });
 
-	menuOverlay.click(function(e){
-		if($(e.target).is(menuOverlay)){ //if you've clicked on the overlay part (not the menu)
-			var target = $(this).children(menuOptions);
-			if(target.hasClass("open")){ 
-				target.removeClass("open");
-				target.children(".toggle").removeClass("open");
+	menuCatch.click(function(e){
+		if($(e.target).is(menuCatch)){ //if you've clicked on the overlay part (not the menu)
+			if(menuOptions.hasClass("open")){ 
+				menuOptions.removeClass("open");
+				menuOptions.children(".toggle").removeClass("open");
 			}
 		}
 	});
+
+    //////// POPUPS ////////////////////
 
 	optionsOverlay.click(function(e){
 		if($(e.target).is(optionsOverlay)){ //if you've clicked on the overlay part (not the menu)
