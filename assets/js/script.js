@@ -23,11 +23,20 @@ $(function(){
     });
 
     menuProfileToggle.click(function(e){
-        menuProfile.toggleClass("open");
-        menuProfileToggle.parent().toggleClass("open");
-        setTimeout(function(){
-                menuProfileToggle.toggleClass("open");
-        }, 125);
+        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
+            menuProfileToggle.removeClass("open")
+            setTimeout(function(){
+                    menuProfile.removeClass("open");
+                    menuProfileToggle.parent().removeClass("open");
+            }, 600);
+        }else if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
+            //this else if is here to stop you from opening when you are closing (stops everything from screwing up)
+            menuProfile.addClass("open");
+            menuProfileToggle.parent().addClass("open");
+            setTimeout(function(){
+                    menuProfileToggle.addClass("open");
+            }, 600);
+        }
     });
 
     menuOptions.on('hide',function(){

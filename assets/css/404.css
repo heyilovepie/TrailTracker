@@ -1,0 +1,13 @@
+#four-o-four{
+	padding-top: 60px;
+	background-color: #c3c3c3;
+}
+#four-o-four-container{
+	position: absolute;
+	width: 90%;
+	height: 200px;
+	margin-left: -45%;
+	margin-top: -70px;
+	left: 50%;
+	top: 50%;
+}

@@ -22,7 +22,11 @@ main.config(function ($routeProvider) {
       templateUrl: 'assets/pages/location.html',
       controller : 'locationController'
     })
+        .when('/404', {
+      templateUrl: 'assets/pages/404.html',
+      controller : '404Controller'
+    })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/404'
     });
 });
