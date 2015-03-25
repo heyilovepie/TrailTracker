@@ -1,0 +1,27 @@
+#list{
+	padding-top: 60px;
+}
+
+#list-container{
+	position: absolute;
+	width: 90%;
+	height: 100%;
+	margin-left: -45%;
+	left: 50%;
+	top: 60px;
+	background-color: #addddd;
+}
+
+#list-container li{
+	position: absolute;
+	cursor:pointer;
+	width: 90%;
+	height: 10px;
+	margin: 10px 10px;
+	padding: 10px 10px;
+	text-align:center;
+	vertical-align:middle;
+	background-color:#000000;
+	list-style-type: none;
+	border-radius: 5px;
+}

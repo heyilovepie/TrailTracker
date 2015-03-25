@@ -23,20 +23,7 @@ $(function(){
     });
 
     menuProfileToggle.click(function(e){
-        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
-            menuProfileToggle.removeClass("open")
-            setTimeout(function(){
-                    menuProfile.removeClass("open");
-                    menuProfileToggle.parent().removeClass("open");
-            }, 600);
-        }else if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
-            //this else if is here to stop you from opening when you are closing (stops everything from screwing up)
-            menuProfile.addClass("open");
-            menuProfileToggle.parent().addClass("open");
-            setTimeout(function(){
-                    menuProfileToggle.addClass("open");
-            }, 600);
-        }
+        menuProfile.trigger("switch");
     });
 
     menuOptions.on('hide',function(){
@@ -53,13 +40,47 @@ $(function(){
         menuCatch.toggleClass("hidden");
     });
 
+    menuProfile.on('hide',function(){
+        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
+            menuProfileToggle.removeClass("open")
+            setTimeout(function(){
+                    menuProfile.removeClass("open");
+                    menuProfileToggle.parent().removeClass("open");
+            }, 600);
+        }
+    }).on('show',function(){
+        if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
+            //this else if is here to stop you from opening when you are closing (stops everything from screwing up)
+            menuProfile.addClass("open");
+            menuProfileToggle.parent().addClass("open");
+            setTimeout(function(){
+                    menuProfileToggle.addClass("open");
+            }, 600);
+        }
+    }).on('switch',function(){
+        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
+            menuProfileToggle.removeClass("open")
+            setTimeout(function(){
+                    menuProfile.removeClass("open");
+                    menuProfileToggle.parent().removeClass("open");
+            }, 600);
+        }else if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
+            //this else if is here to stop you from opening when you are closing (stops everything from screwing up)
+            menuProfile.addClass("open");
+            menuProfileToggle.parent().addClass("open");
+            setTimeout(function(){
+                    menuProfileToggle.addClass("open");
+            }, 600);
+        }
+    });
+
     //////// POPUPS ////////////////////
 	newRoute.click(function(){
 		typeCatch.removeClass("hidden");
 		menuOptions.trigger("hide");
 	});
 
-	$("#type-page .options button").click(function(){
+	$("#type-page .options .button").click(function(){
 		typeCatch.addClass("hidden");
 	});
 

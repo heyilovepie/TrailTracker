@@ -17,10 +17,6 @@
 	background-color : transparent
 }
 
-.hidden{
-	display: none;
-}
-
 @import url(http://fonts.googleapis.com/css?family=Lato:300|Ubuntu:300);
 
 
@@ -319,11 +315,18 @@ button a{
 	margin: 9% 0;
 }
 
-.popup-page .option button, .popup-page .option h4{
+.popup-page .option .button, .popup-page .option h4{
 	display:  inline-block;
 }
 
-.popup-page button i{
+#type-page .button {
+	width: 80%;
+	height: 10%;
+	background-color: #f0b051;
+	border-radius: 5px;
+}
+
+.popup-page .button i{
 	width: 100%;
 	height: 100%;
 }
@@ -347,15 +350,17 @@ button a{
 /*=============MAP=============*/
 
 .map-container {
+	top: 0px;
 	width: 100%;
 	height: 200px;
 	background: #3d4e5b;
 	margin-top: 60px; /*against the menu*/
 	position: absolute;
 	z-index: 2;
-	-moz-transition: 	width .28s cubic-bezier(.4,0,.2,1);
-	-webkit-transition: width .28s cubic-bezier(.4,0,.2,1);
-	transition: 		width .28s cubic-bezier(.4,0,.2,1);
+	transition: all .3s ease-out;
 	display: block;
 }
 
+.map-container.hide {
+	top: 10px;
+}

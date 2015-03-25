@@ -1,6 +1,6 @@
 main.controller('404Controller', function($scope, $routeParams, dataProvider){
-	$(".map-container").addClass("hidden");
-	console.log("first");
+	$(".map-container").addClass("hide");
+
 	$scope.message = "Something seriously screwed up...";
 	$scope.rand = parseInt(Math.random()* 10);
 	if($scope.rand < 1){
