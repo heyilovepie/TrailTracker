@@ -21,7 +21,10 @@
 
 
 html, body {
-    font:15px/1.3 Arial, sans-serif;
+	color: white;
+	font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    font-size: 15px;
+    /*font:15px/1.3 Arial, sans-serif;*/*/
 	z-index:0;	
 	overflow: hidden
 }
@@ -39,10 +42,10 @@ button{
 	width: 40px;
 	height: 40px;
 	margin: 0px 0px;
-	margin: 5px 5px;
+	margin: 5px 25px;
 	text-align:center;
 	vertical-align:middle;
-	background-color:#f0b051;
+	background-color:#7accc8;
 	border-radius: 5px;
 }
 
@@ -51,7 +54,7 @@ button:active{
 }
 
 button:after{
-	background-color:#f0b051;
+	background-color:#7accc8;
 }
 
 button a{
@@ -80,13 +83,13 @@ button a{
 	/* The actual menu */
 	height: 60px;
 	position: relative;
-	background-color: #000000;
+	background-color: #00746b;
 }
 
 #menu #menu-title{
 	position: relative;
 	display: inline-block;
-	top: 0px;
+	top: 30%;
 	height: 100%;
 	width: 10%;
 	margin: 0 40%;
@@ -106,10 +109,10 @@ button a{
 	position: absolute;
 	top: 0px;
 	height: 100%;
-	background-color: #51F0B0;
+	background-color: #00746b;
 	margin: 0;
 	transition: all .5s ease-out;
-	border: 2px;
+	border: 0px;
 	border-color: #308f69;
 	border-style: solid;
 }
@@ -117,7 +120,7 @@ button a{
 /* #menu #options */
 #menu .catch{
 	position: absolute;
-	background-color: #f0b051;
+	background-color: #7accc8;
 	opacity: .5;
 	top: 0px;
 	width: 100%;
@@ -151,7 +154,7 @@ button a{
 	padding: 10px 10px;
 	text-align:center;
 	vertical-align:middle;
-	background-color:#000000;
+	background-color:#62aca8;
 	list-style-type: none;
 	border-radius: 5px;
 }
@@ -196,7 +199,7 @@ button a{
 #menu .toggle{
 	width: 60px;
 	height: 55px;
-	background-color: #51F0B0;
+	background-color: #00746b;
 	border-radius: 5px;
     position: relative;
     transition: all .3s ease-out;
@@ -235,7 +238,7 @@ button a{
 	margin: 5px 5px;
 	text-align:center;
 	vertical-align:middle;
-	background-color:#f0b051;
+	background-color:#7accc8;
 	border-radius: 5px;
 }
 
@@ -272,11 +275,11 @@ button a{
 
 .popup-page{
 	position: absolute;
-	background-color: #ffffff;
+	background-color: #697574;
 	box-sizing: border-box;
 	opacity: 1;
 	position:fixed;
-	text-align:center;
+	text-align:left;
 	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
 	z-index: 6;
 }

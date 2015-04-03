@@ -42,6 +42,25 @@
     <script type="text/javascript" src="assets/js/controllers/listController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/trailController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/locationController.js"></script>
+
+    <!-- Clock Script -->
+    <script>
+        function startTime() {
+            var today=new Date();
+            var h=today.getHours();
+            var m=today.getMinutes();
+            var s=today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML = h+":"+m+":"+s;
+            var t = setTimeout(function(){startTime()},500);
+        }
+
+        function checkTime(i) {
+            if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
   </head>
 
   <body>
@@ -50,7 +69,11 @@
 
         <div id="menu-bar" class="menu-component">
             <div id="menu-title">
-                <h3>1:00</h3>
+                <!-- <h3>1:00</h3> -->
+                <!-- Display Clock -->
+                <body onload="startTime()">
+                    <div id="txt"></div>
+                </body>
             </div>
         </div>
 
@@ -74,7 +97,12 @@
             <div id="menu-profile" class="menu-toggle menu-component">
                 <div class="profile">
                     <div class="title">
-                        <h1>Name</h1>
+                        <!-- <h1>Name</h1> -->
+                        <form>
+                            User Name:<br>
+                            <input type="text" name="firstname">
+                            <br>
+                        </form>
                     </div>
                     <h4>Speed: sdfasdfsadsfdfasd</h4>
                     <h4><a href="/#/404">404</a></h4>
