@@ -279,11 +279,11 @@ button a{
 
 .popup-page{
 	position: absolute;
-	background-color: #697574;
+	background-color: #ffffff;
 	box-sizing: border-box;
 	opacity: 1;
 	position:fixed;
-	text-align:left;
+	text-align:center;
 	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.2);
 	z-index: 6;
 }
@@ -322,14 +322,22 @@ button a{
 	margin: 9% 0;
 }
 
-.popup-page .option button, .popup-page .option h4{
+.popup-page .option .button, .popup-page .option h4{
 	display:  inline-block;
 }
 
-.popup-page button i{
+#type-page .button {
+	width: 80%;
+	height: 10%;
+	background-color: #f0b051;
+	border-radius: 5px;
+}
+
+.popup-page .button i{
 	width: 100%;
 	height: 100%;
 }
+
 
 /*=======================================*/
 
