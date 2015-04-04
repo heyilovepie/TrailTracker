@@ -59,7 +59,7 @@ $(function(){
 		menuOptions.trigger("hide");
 	});
 
-	$("#type-page .options button").click(function(){
+	$("#type-page .options .button").click(function(){
 		typeCatch.addClass("hidden");
 	});
 
