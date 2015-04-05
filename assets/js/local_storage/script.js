@@ -91,7 +91,6 @@ sklad.open(dbName, {
 
     var notUsingNames = function(conn) {
       // stop all other names from being used at this time
-      console.log("all other names not using");
       conn
           .get({
             nameData:{description: sklad.DESC, index: 'using'}
@@ -109,7 +108,7 @@ sklad.open(dbName, {
     };
 
     $add_name.click(function(){
-      if (!$name.val().trim()) { return; } //nothing there then do nothing
+      if (!$name.val().trim() || $name.val().trim() == "default") { return; } //nothing there then do nothing
 
       var thisData = {
         nameData: [
@@ -201,6 +200,10 @@ sklad.open(dbName, {
       if(main.name != "default"){
         setStart(false);
         console.log("should be exiting startPage");
+        $showName.text("should be exiting startPage heeeelp");
+        setTimeout(function(){
+            $showName.text("You are " + main.name);
+        }, 1500);
       }else{
         console.log("not allowed to leave yet!");
         $showName.removeClass("hidden");
