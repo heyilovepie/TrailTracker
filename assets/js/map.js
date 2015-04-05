@@ -148,21 +148,54 @@ var bwStyles = [
     }
 ]
 
+
+
+
+
+
 $(document).ready(function(){
-    var map = new GMaps({
-        div: '#map',
-        lat: 49.2764031, 
-        lng: -123.0979068,
-        zoom: 11,
-        options: {
-            scrollwheel: false,
-            navigationControl: false,
-            mapTypeControl: false,
-            disableDefaultUI: true,
-            styles: bwStyles
-        },
-        click: function(e){
-            alert("yeahhhh")
-        }
-    });
+
+    function success(position) {
+      var coordLat = position.coords.latitude;
+      var coordLong = position.coords.longitude;
+
+      console.log("in success");
+
+    // var coordLat = 49.2764031;
+    // var coordLong = -123.0979068;
+
+      // var coordLat = position.coords.latitude;
+      // var coordLong = position.coords.longitude;
+
+    // var coordLat = 49.2764031;
+    // var coordLong = -123.0979068;
+
+        var map = new GMaps({
+            div: '#map',
+            lat: coordLat, 
+            lng: coordLong,
+            zoom: 11,
+            options: {
+                scrollwheel: false,
+                navigationControl: false,
+                mapTypeControl: false,
+                disableDefaultUI: true,
+                styles: bwStyles
+            },
+            click: function(e){
+                alert("yeahhhh")
+            }
+        })
+    };
+
+    function error(msg) {
+      alert('error: ' + msg);
+    };
+
+    if (navigator.geolocation) {
+        console.log("got location? :" + navigator.geolocation);
+      navigator.geolocation.getCurrentPosition(success, error); //this is not working!!!
+    } else {
+      alert('geolocation not supported');
+    }
 });
