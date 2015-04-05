@@ -49,14 +49,10 @@ sklad.open(dbName, {
       if(bool == true){
         $nameTitle.addClass("hidden");
         $startPage.removeClass("hidden");
-        if($startPage.hasClass("hidden") == false) console.log("is not Hidden");
-        else console.log("error");
       }else{
         $nameTitle.text(main.name);
         $nameTitle.removeClass("hidden");
         $startPage.addClass("hidden");
-        if($startPage.hasClass("hidden")) console.log("is Hidden");
-        else console.log("error");
       }
     }
 
@@ -81,8 +77,6 @@ sklad.open(dbName, {
             }else{
               $showName.text("The last user was "+ main.name + ". Is that you?");
             }
-
-            $showName.removeClass("hidden");
           });
     }
 
@@ -196,7 +190,7 @@ sklad.open(dbName, {
       if(main.name != "default"){
         setStart(false);
         setTimeout(function(){
-            $showName.text("You are " + main.name);
+            $showName.text("You are " + main.name + "...right?");
         }, 150);
       }else{
         $showName.text("Please choose a Username!");

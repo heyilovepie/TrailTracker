@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="assets/css/all.css" />
     <link rel="stylesheet" href="assets/css/404.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/start.css" />
     <link rel="stylesheet" href="assets/css/list.css" />
     <link rel="stylesheet" href="assets/css/trails.css" />
     <link rel="stylesheet" href="assets/css/location.css" />
@@ -68,19 +67,34 @@
   </head>
 
   <body>
+
+    <!-- this is the start page -->
+    <div id="start-page" class="popup-page">
+        <div id="start-page-container-t" class="start-page-container">
+            <input type='text' id='name'> <button id='add-name'>Add Name</button>
+        </div>
+        <div id="start-page-container-m" class="start-page-container">
+            <h3 id="show-the-name">Please wait a moment while the app loads...</h3>
+        </div>
+        <div id="start-page-container-b" class="start-page-container">
+            <button class='clear-history'>Clear ALL</button>
+            <button class='ok'>OK</button>
+        </div>
+    </div> <!-- end of start page -->
+
+    <!-- this is the menu (incl side menus) -->
     <nav id="menu">
         <div class="catch menu-component hidden"></div>
 
         <div id="menu-bar" class="menu-component">
             <div id="menu-title">
-                <!-- <h3>1:00</h3> -->
-                <!-- Display Clock -->
                 <body onload="startTime()">
                     <div id="txt"></div>
                 </body>
             </div>
-        </div>
+        </div> <!-- end of top bar -->
 
+        <!-- left options menu -->
         <div id="options">
             <div id="menu-options" class="menu-toggle menu-component">
                 <div class="toggle">
@@ -97,6 +111,7 @@
             </div>
         </div> <!-- end of options -->
 
+        <!-- Your profile menu -->
         <div id="profile">
             <div id="menu-profile" class="menu-toggle menu-component">
                 <div class="profile">
@@ -117,28 +132,17 @@
         </div> <!-- end of profile -->
     </nav> <!-- end of menu -->
 
+    <!-- The MAP -->
     <div class="map-container">
         <div id = "map" style="width: 100%;height: 100%"></div>
     </div>
 
+    <!--Any page specific elements -->
     <div ng-app='main' id="pages">
         <div ng-view></div>
     <div> 
 
-    <!-- this is the logout page -->
-    <div id="start-page" class="popup-page">
-        <div id="start-page-container-t" class="start-page-container">
-            <input type='text' id='name'> <button id='add-name'>Add Name</button>
-        </div>
-        <div id="start-page-container-m" class="start-page-container">
-            <h3 id="show-the-name" class="hidden">theName</h3>
-        </div>
-        <div id="start-page-container-b" class="start-page-container">
-            <button class='clear-history'>Clear ALL</button>
-            <button class='ok'>OK</button>
-        </div>
-    </div> <!-- end of start page -->
-
+    <!-- pop up menu for catalogue vs location -->
     <div class="catch type hidden">
         <div id="type-page" class="popup-page">
            <h2>Sort by:</h2>
@@ -156,6 +160,5 @@
             </div>
         </div> <!-- end of type page -->
     </div> <!-- end of catch page -->
-  </body>
-
-</html>
+  </body> <!--end of html body -->
+</html> <!-- end of html -->
