@@ -4,7 +4,7 @@
 		"id":"quarryrock",
 		"km":"3.8",
 		"hours" :"1.5",
-		"location":["xcoor", "ycoor"],
+		"location":[{"long": ""}, {"lat": ""}],
 		"options":[
 			{"name": "hike"}
 		]
@@ -14,7 +14,7 @@
 		"id":"grousegrind",
 		"km":"2.9",
 		"hours":"1.75",
-		"location":["xcoor", "ycoor"],
+		"location":[{"long": ""}, {"lat": ""}],
 		"options":[
 			{"name": "hike"}
 		]
@@ -24,7 +24,7 @@
 		"id":"ricelake",
 		"km":"3",
 		"hours":"1",
-		"location":["xcoor", "ycoor"],
+		"location":[{"long": ""}, {"lat": ""}],
 		"options":[
 			{"name": "hike"},
 			{"name": "run"},
