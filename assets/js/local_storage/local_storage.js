@@ -40,21 +40,22 @@ sklad.open(dbName, {
         $list        = $('#list'),
         $clear       = $('.clear-history'),
         $nameTitle   = $("#menu .profile #existing-name h1"),
-        $startPage   = $("#menu #start-page"),
+        $startPage   = $("#start-page"),
         $showName    = $('#show-the-name'),
-        $ok          = $('.ok');
+        $ok          = $('.ok'),
+        $logout      = $(".logout");
 
     function setStart(bool){
-      if(bool){
+      if(bool == true){
         $nameTitle.addClass("hidden");
         $startPage.removeClass("hidden");
-        if(!$startPage.hasClass("hidden")) console.log("is not Hidden");
+        if($startPage.hasClass("hidden") == false) console.log("is not Hidden");
         else console.log("error");
       }else{
         $nameTitle.text(main.name);
         $nameTitle.removeClass("hidden");
         $startPage.addClass("hidden");
-        if($startPage.hasClass("hidden")) console.log("is not Hidden");
+        if($startPage.hasClass("hidden")) console.log("is Hidden");
         else console.log("error");
       }
     }
@@ -62,27 +63,22 @@ sklad.open(dbName, {
     function findName(conn) {
       conn
           .get({
-            nameData:{description: sklad.DESC, index: 'using'}
+            nameData:{description: sklad.DESC, index: 'name_search'}
           }, function(err, data) {
             if (err) { return console.error(err); }
 
             var hasName = false;
             data.nameData.forEach(function(theName){
               if(theName.value.using){
-                console.log("theName");
-                main.name = theName;
+                main.name = theName.value.name;
                 hasName = true;
                 return;
-              }else{
-                console.log("notusing" + theName);
               }
             });
 
             if( hasName == false ){
-              setStart(true);
               $showName.addClass("hidden");
             }else{
-              setStart(false);
               $showName.removeClass("hidden");
               $showName.text("Name: " + main.name);
             }
@@ -93,7 +89,7 @@ sklad.open(dbName, {
       // stop all other names from being used at this time
       conn
           .get({
-            nameData:{description: sklad.DESC, index: 'using'}
+            nameData:{description: sklad.DESC, index: 'name_search'}
           }, function(err, data) {
             if (err) { return console.error(err); }
 
@@ -231,6 +227,10 @@ sklad.open(dbName, {
         updateRows(conn);
       })
     };
+
+    $logout.click(function(){
+        $startPage.removeClass("hidden");
+    });
 
     //init
     findName(conn);

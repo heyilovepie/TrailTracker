@@ -376,9 +376,8 @@ button a{
 
 .map-container {
 	width: 100%;
-	height: 200px;
+	height: 100%;
 	background: #3d4e5b;
-	margin-top: 60px; /*against the menu*/
 	position: absolute;
 	z-index: 2;
 	-moz-transition: 	width .28s cubic-bezier(.4,0,.2,1);
