@@ -149,53 +149,37 @@ var bwStyles = [
 ]
 
 
-
-
-
-
 $(document).ready(function(){
+    main.map = new GMaps({
+        div: '#map',
+        lat: 49.2764031, 
+        lng: -123.0979068,
+        zoom: 11,
+        options: {
+            scrollwheel: false,
+            navigationControl: false,
+            mapTypeControl: false,
+            disableDefaultUI: true,
+            styles: bwStyles
+        },
+        click: function(e){
+            alert("yeahhhh");
+        }
+    })
 
-    function success(position) {
-      var coordLat = position.coords.latitude;
-      var coordLong = position.coords.longitude;
-
-      console.log("in success");
-
-    // var coordLat = 49.2764031;
-    // var coordLong = -123.0979068;
-
-      // var coordLat = position.coords.latitude;
-      // var coordLong = position.coords.longitude;
-
-    // var coordLat = 49.2764031;
-    // var coordLong = -123.0979068;
-
-        var map = new GMaps({
-            div: '#map',
-            lat: coordLat, 
-            lng: coordLong,
-            zoom: 11,
-            options: {
-                scrollwheel: false,
-                navigationControl: false,
-                mapTypeControl: false,
-                disableDefaultUI: true,
-                styles: bwStyles
-            },
-            click: function(e){
-                alert("yeahhhh")
-            }
-        })
-    };
-
-    function error(msg) {
-      alert('error: ' + msg);
-    };
-
-    if (navigator.geolocation) {
-        console.log(navigator.geolocation);
-      navigator.geolocation.getCurrentPosition(success, error); //this is not working!!!
-    } else {
-      alert('geolocation not supported');
-    }
+    GMaps.geolocate({
+      success: function(position) {
+        main.map.setCenter(position.coords.latitude, position.coords.longitude);
+        console.log("set center");
+      },
+      error: function(error) {
+        alert('Geolocation failed: '+error.message);
+      },
+      not_supported: function() {
+        alert("Your browser does not support geolocation");
+      },
+      always: function() {
+        alert("Done!");
+      }
+    });
 });
