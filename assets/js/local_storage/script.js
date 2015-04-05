@@ -4,7 +4,7 @@
 var dbName = 'ProfileData7';
 var myData;
 var trail;
-var name = "gillian";
+main.name = "default";
  
  //open database
 sklad.open(dbName, {
@@ -38,7 +38,26 @@ sklad.open(dbName, {
         $add         = $('#add'),
         $add_name    = $('#add-name'),
         $list        = $('#list'),
-        $clear       = $('#clear');
+        $clear       = $('.clear-history'),
+        $nameTitle   = $("#menu .profile #existing-name h1"),
+        $startPage   = $("#menu #start-page"),
+        $showName    = $('#show-the-name'),
+        $ok          = $('.ok');
+
+    function setStart(bool){
+      if(bool){
+        $nameTitle.addClass("hidden");
+        $startPage.removeClass("hidden");
+        if(!$startPage.hasClass("hidden")) console.log("is not Hidden");
+        else console.log("error");
+      }else{
+        $nameTitle.text(main.name);
+        $nameTitle.removeClass("hidden");
+        $startPage.addClass("hidden");
+        if($startPage.hasClass("hidden")) console.log("is not Hidden");
+        else console.log("error");
+      }
+    }
 
     function findName(conn) {
       conn
@@ -50,21 +69,29 @@ sklad.open(dbName, {
             var hasName = false;
             data.nameData.forEach(function(theName){
               if(theName.value.using){
-                name = theName;
+                console.log("theName");
+                main.name = theName;
                 hasName = true;
-
                 return;
+              }else{
+                console.log("notusing" + theName);
               }
             });
 
             if( hasName == false ){
-              ////pop up screen
+              setStart(true);
+              $showName.addClass("hidden");
+            }else{
+              setStart(false);
+              $showName.removeClass("hidden");
+              $showName.text("Name: " + main.name);
             }
           });
     }
 
-    function notUsingNames(conn) {
+    var notUsingNames = function(conn) {
       // stop all other names from being used at this time
+      console.log("all other names not using");
       conn
           .get({
             nameData:{description: sklad.DESC, index: 'using'}
@@ -79,7 +106,7 @@ sklad.open(dbName, {
               });
             });
           });
-    }
+    };
 
     $add_name.click(function(){
       if (!$name.val().trim()) { return; } //nothing there then do nothing
@@ -100,10 +127,13 @@ sklad.open(dbName, {
           if(err.message == "Key already exists in the object store."){ //already have this person :)
             conn.upsert('nameData', thisData.nameData, function(err){ //replace the data for the name 
                     if(err){ return console.error(); }
+                    $showName.text("Welcome back " + main.name + "!");
                   });
-          }else{ return; } //if the error is not bc 2 same names then return
+          }else{ return console.error(err); } //if the error is not bc 2 same names then return
         }
-        name = $name.val().trim();
+        main.name = $name.val().trim();
+        $showName.removeClass("hidden");
+        $showName.text("Hello " + main.name + ". Welcome to our app!");
         $name.val('');
         updateRows(conn);
       })
@@ -125,7 +155,7 @@ sklad.open(dbName, {
           $list.empty(); //make the list varaible have no variables because you will fill it
               
           myData.profileData.forEach(function(data){ //for each in to do list add text to the element
-              if(data.value.name == name){ //if you have the right name
+              if(data.value.name == main.name){ //if you have the right name
                 var $li = $(document.createElement('li'));
                 if(data.value.done){
                   $li.css({'text-decoration' : 'line-through'})
@@ -134,7 +164,7 @@ sklad.open(dbName, {
                   $li.css({'text-decoration' : 'none'})
                 }
 
-                $li.text(data.value.trail + "  : " + data.value.name + " : " + data.value.timestamp);
+                $li.text("trail name :" + data.value.trail);
 
                 $li.click(function(){
                   data.value.done = !data.value.done; //makes variable done the opposite.
@@ -147,30 +177,46 @@ sklad.open(dbName, {
                 $list.append($li); //
               }
           });
-          /////////
         });
     }
 
     $clear.click(function(){
-      conn.clear('profileData', function (err) {
+      conn.clear(['profileData', 'nameData'], function (err) {
             if (err) {
                 throw new Error(err.message);
             }
       });
+      $showName.addClass("hidden");
+      main.name = "default";
       updateRows(conn);
     });
 
-    //clicking on a button
-    $add.click(function () {
+    $add.click(function(){
       if (!$trail.val().trim()) { return; } //nothing there then do nothing
+      main.addTrail($trail.val().trim());
+      $trail.val("");
+    });
 
+    $ok.click(function(){
+      if(main.name != "default"){
+        setStart(false);
+        console.log("should be exiting startPage");
+      }else{
+        console.log("not allowed to leave yet!");
+        $showName.removeClass("hidden");
+        $showName.text("Please choose a Username!");
+      }
+    });
+
+    main.addTrail = function (theTrail) {
+      // this method is called from the trail controller when the check button is pressed
       var thisData = {
         profileData: [
           { 
             timestamp: Date.now(),
-            trail: $trail.val().trim(),
+            trail: theTrail,
             done:false,
-            name: name
+            name: main.name
           }
         ]
       };
@@ -179,10 +225,9 @@ sklad.open(dbName, {
 
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
-        $trail.val('');
         updateRows(conn);
       })
-    });
+    };
 
     //init
     findName(conn);

@@ -20,22 +20,21 @@
     <!--bower components -->
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
-    <script type="text/javascript" src="assets/js/angular-maps.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/hammer.js/hammer.min.js"></script>
     <script type="text/javascript" src="bower_components/velocity/velocity.min.js"></script>
     <script src='http://maps.googleapis.com/maps/api/js?sensor=true'></script>
     <script type="text/javascript" src="bower_components/gmaps.js/gmaps.js"></script>
 
-    <!--local storage -->
-    <script src='assets/js/local_storage/sklad.js'></script>
-    <script src='assets/js/local_storage/zepto.js'></script>
-    <script src='assets/js/local_storage/script.js'></script>
-
     <!-- scripts -->
     <script type="text/javascript" src="assets/js/script.js"></script>
     <script type="text/javascript" src="assets/js/map.js"></script>
     <script type="text/javascript" src="assets/js/configure.js"></script>
+
+    <!--local storage -->
+    <script src='assets/js/local_storage/sklad.js'></script>
+    <script src='assets/js/local_storage/zepto.js'></script>
+    <script src='assets/js/local_storage/script.js'></script>
 
     <!--providers -->
     <script type="text/javascript" src="assets/js/providers/dataProvider.js"></script>
@@ -103,11 +102,15 @@
                 <div class="profile">
                     <div class="title">
                         <!-- <h1>Name</h1> -->
-                        <form>
+                        <form id="addname" class="hidden">
                             User Name:<br>
                             <input type="text" name="firstname">
                             <br>
                         </form>
+
+                        <div id="existing-name">
+                            <h1>myName</h1>
+                        </div>
                     </div>
                     <h4>Speed: sdfasdfsadsfdfasd</h4>
                     <h4><a href="/#/404">404</a></h4>
@@ -129,18 +132,13 @@
         <div ng-view></div>
     <div> 
 
-    <div id="start-page" class="popup-page hidden">
-        <div id="start-options">
-            <h2>Sort by:</h2>
-            <div class="start-option">
-                <button></button>
-                <h4>Catalogue</h4>
-            </div>
-            <div class="start-option">
-                <button></button>
-                <h4>Location</h4>
-            </div>
-        </div>
+    <div id="start-page" class="popup-page">
+        <input type='text' id='name'> <button id='add-name'>Add Name</button>
+        <input type='text' id='trail'> <button id='add'>Add</button>
+        <h3 id="show-the-name" class="hidden">theName</h3>
+        <ul id='list'></ul>
+        <button class='clear-history'>Clear ALL</button>
+        <button class='ok'>OK</button>
     </div> <!-- end of start page -->
 
     <div class="catch type hidden">

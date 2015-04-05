@@ -4,4 +4,5 @@ main.controller('mainController', function($scope, $routeParams, dataProvider){
         	main.data = data;
     	}
     });
+    $(".map-container").removeClass("hide");
 });
