@@ -193,7 +193,7 @@ $(document).ready(function(){
     };
 
     if (navigator.geolocation) {
-        console.log("got location? :" + navigator.geolocation);
+        console.log(navigator.geolocation);
       navigator.geolocation.getCurrentPosition(success, error); //this is not working!!!
     } else {
       alert('geolocation not supported');
