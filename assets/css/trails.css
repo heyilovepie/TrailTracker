@@ -14,3 +14,29 @@
 #trail h1, #trail h3{
 	color: #000000;
 }
+
+#trail #trail-menu{
+	position: absolute;
+	background-color: #000000;
+	width: 100%;
+	height: 60px;
+	bottom: 0;	
+}
+
+#trail #trail-menu .button-holder{
+	height: 100%;
+	width: 60px;
+}
+
+#trail #trail-menu .button-holder button{
+	top: 10px;
+	margin: 10px 10px;
+}
+
+#trail #trail-menu .button-holder#holder-check{
+	float: right;
+}
+
+#trail #trail-menu .button-holder#holder-x{
+	float: left;
+}

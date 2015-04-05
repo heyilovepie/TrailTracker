@@ -16,4 +16,10 @@ main.controller('trailController', function($scope, $routeParams, dataProvider){
     });
 
     $(".map-container").addClass("hide");
+
+    var check = $('#trail #trail-menu .button-holder#holder-check');
+
+    check.click(function(){
+      main.trail = $scope.type; //make the current trail be this trail
+    });
 });
