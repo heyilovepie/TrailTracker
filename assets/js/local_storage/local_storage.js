@@ -37,7 +37,7 @@ sklad.open(dbName, {
         $name        = $('#name'),
         $add         = $('#add'),
         $add_name    = $('#add-name'),
-        $list        = $('#list'),
+        $list        = $('.list-of-trails'),
         $clear       = $('.clear-history'),
         $nameTitle   = $("#menu .profile #existing-name h1"),
         $startPage   = $("#start-page"),
@@ -77,11 +77,12 @@ sklad.open(dbName, {
             });
 
             if( hasName == false ){
-              $showName.addClass("hidden");
+              $showName.text("First time? Please pick a Username");
             }else{
-              $showName.removeClass("hidden");
-              $showName.text("Name: " + main.name);
+              $showName.text("The last user was "+ main.name + ". Is that you?");
             }
+
+            $showName.removeClass("hidden");
           });
     }
 
@@ -127,7 +128,6 @@ sklad.open(dbName, {
           }else{ return console.error(err); } //if the error is not bc 2 same names then return
         }
         main.name = $name.val().trim();
-        $showName.removeClass("hidden");
         $showName.text("Hello " + main.name + ". Welcome to our app!");
         $name.val('');
         updateRows(conn);
@@ -181,7 +181,7 @@ sklad.open(dbName, {
                 throw new Error(err.message);
             }
       });
-      $showName.addClass("hidden");
+      $showName.text("Everything is gone!");
       main.name = "default";
       updateRows(conn);
     });
@@ -195,14 +195,10 @@ sklad.open(dbName, {
     $ok.click(function(){
       if(main.name != "default"){
         setStart(false);
-        console.log("should be exiting startPage");
-        $showName.text("should be exiting startPage heeeelp");
         setTimeout(function(){
             $showName.text("You are " + main.name);
-        }, 1500);
+        }, 150);
       }else{
-        console.log("not allowed to leave yet!");
-        $showName.removeClass("hidden");
         $showName.text("Please choose a Username!");
       }
     });

@@ -76,6 +76,10 @@ button a{
 
 }
 
+li{
+	list-style-type: none;
+}
+
 /*========Menu=============*/
 
 #menu{
@@ -301,6 +305,29 @@ button a{
 	width: 100%;
 	height: 100%;
 	border-radius: 0;
+	padding: 10% 5% 0% 5%;
+	background-color: #474747;
+}
+
+#start-page .start-page-container{
+	width: 100%;
+	height: 30%;
+}
+
+#start-page .start-page-container#start-page-container-t{
+	top: 0;
+}
+
+#start-page .start-page-container#start-page-container-m{
+	padding: 0 10%;
+}
+
+#start-page .start-page-container#start-page-container-b{
+	bottom: 0;
+}
+
+#start-page #start-page-container-b button{
+	display: inline-block;
 }
 
 #start-page button{

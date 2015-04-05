@@ -101,17 +101,12 @@
             <div id="menu-profile" class="menu-toggle menu-component">
                 <div class="profile">
                     <div class="title">
-                        <!-- <h1>Name</h1> -->
                         <div id="existing-name">
                             <h1>myName</h1>
                         </div>
-
-                        <button class='clear-history'>Clear ALL</button>
-                        <button class='logout'>Change Username</button>
-
                     </div>
-                    <h4>Speed: sdfasdfsadsfdfasd</h4>
-                    <h4><a href="/#/404">404</a></h4>
+                    <button class='logout'>Change Username</button>
+                    <ul class='list-of-trails'></ul>
                 </div>
             </div>
             <div id="toggle-profile" class="toggle menu-component">
@@ -130,13 +125,18 @@
         <div ng-view></div>
     <div> 
 
+    <!-- this is the logout page -->
     <div id="start-page" class="popup-page">
-        <input type='text' id='name'> <button id='add-name'>Add Name</button>
-        <input type='text' id='trail'> <button id='add'>Add</button>
-        <h3 id="show-the-name" class="hidden">theName</h3>
-        <ul id='list'></ul>
-        <button class='clear-history'>Clear ALL</button>
-        <button class='ok'>OK</button>
+        <div id="start-page-container-t" class="start-page-container">
+            <input type='text' id='name'> <button id='add-name'>Add Name</button>
+        </div>
+        <div id="start-page-container-m" class="start-page-container">
+            <h3 id="show-the-name" class="hidden">theName</h3>
+        </div>
+        <div id="start-page-container-b" class="start-page-container">
+            <button class='clear-history'>Clear ALL</button>
+            <button class='ok'>OK</button>
+        </div>
     </div> <!-- end of start page -->
 
     <div class="catch type hidden">
