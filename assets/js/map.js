@@ -149,7 +149,7 @@ var bwStyles = [
 ]
 
 $(document).ready(function(){
-    var map = new GMaps({
+    main.map = new GMaps({
         div: '#map',
         lat: 49.2764031, 
         lng: -123.0979068,
@@ -162,7 +162,23 @@ $(document).ready(function(){
             styles: bwStyles
         },
         click: function(e){
-            alert("yeahhhh")
+            console.log("clicking on map");
         }
+    })
+
+    GMaps.geolocate({
+      success: function(position) {
+        main.map.setCenter(position.coords.latitude, position.coords.longitude);
+        console.log("set center");
+      },
+      error: function(error) {
+        alert('Geolocation failed: '+error.message);
+      },
+      not_supported: function() {
+        alert("Your browser does not support geolocation");
+      },
+      always: function() {
+        alert("Done!");
+      }
     });
 });
