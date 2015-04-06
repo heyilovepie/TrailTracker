@@ -445,3 +445,33 @@ li{
 	display: block;
 }
 
+/* LANDSCAPE MODE */
+@media only screen and (orientation: landscape) {
+	/* Pop-up */
+	#type-page {
+		width: 69%;
+		bottom: 17%;
+		margin-left: -35%;
+	}	
+	.popup-page .options .option {
+		margin: 6% 0;
+	}
+
+	/* Start screen */
+	#start-page input{
+		margin: -3em 0em 0em 0em;
+	}
+
+	#start-page h3 {
+		margin: 2.5em 0em 0em 0em;
+	}
+
+	/* Navigation */
+	#menu #menu-options .options ul {
+		padding: 18% 0% 20% 0%;
+	}
+
+	#menu #menu-options .options li a {
+		padding: 1em 0em 0.5em 0.5em;
+	}
+}
