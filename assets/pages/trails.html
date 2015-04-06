@@ -1,8 +1,15 @@
 <div id="trail">
 	<div id="trail-container">
+		<img ng-src="{{type.imgUrl}}">
 		<h1>{{type.name}}</h1>
-		<h3>{{type.km}} km</h3>
-		<h3>{{type.hours}} hours</h3>
+
+		<div id="trail-card">
+			<h4>{{type.km}} km</h4>
+			<h4>{{type.hours}} hours</h4>
+			<h4>{{type.difficulty}}</h4>
+			
+			<p>{{type.description}}</p>
+		</div>
 	</div>
 
 	<div id="trail-menu">
