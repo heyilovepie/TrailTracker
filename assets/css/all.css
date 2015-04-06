@@ -360,12 +360,11 @@ li{
 }
 
 #type-page{
-	width: 80%;
-	/*height: 250px;*/
+	width: 90%;
 	border-radius: 4px;
 	margin-left: -40%;
-	left: 50%;
-	bottom: 35%;
+	left: 45%;
+	bottom: 29%;
 }
 
 .catch.type{
@@ -452,6 +451,7 @@ li{
 		width: 69%;
 		bottom: 17%;
 		margin-left: -35%;
+		left: 50%;
 	}	
 	.popup-page .options .option {
 		margin: 6% 0;
