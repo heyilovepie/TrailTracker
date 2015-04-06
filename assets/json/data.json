@@ -3,8 +3,11 @@
 		"name":"Quarry Rock",
 		"id":"quarryrock",
 		"km":"3.8",
-		"hours" :"1.5",
-		"location":[{"long": ""}, {"lat": ""}],
+		"hours" :"1.5", 
+		"location": [
+		 	{"lang": "49.333991"},
+		 	{"long": "-122.936647"}
+		],
 		"options":[
 			{"name": "hike"}
 		]
@@ -14,7 +17,10 @@
 		"id":"grousegrind",
 		"km":"2.9",
 		"hours":"1.75",
-		"location":[{"long": ""}, {"lat": ""}],
+		"location": [
+		 	{"lang": "49.372453"},
+		 	{"long": "-123.099466"}
+		],
 		"options":[
 			{"name": "hike"}
 		]
@@ -24,7 +30,55 @@
 		"id":"ricelake",
 		"km":"3",
 		"hours":"1",
-		"location":[{"long": ""}, {"lat": ""}],
+		"location": [
+		 	{"lang": "49.356752"},
+		 	{"long": "-123.013529"}
+		],
+		"options":[
+			{"name": "hike"},
+			{"name": "run"},
+			{"name": "walk"}
+		]
+	},
+	{
+		"name":"Thunderbird Ridge",
+		"id":"thunderbirdridge",
+		"km":"6",
+		"hours":"2.5",
+		"location": [
+		 	{"lang": " 49.382949"},
+		 	{"long": "-123.083179"} 
+		],
+		"options":[
+			{"name": "hike"},
+			{"name": "run"},
+			{"name": "walk"}
+		]
+	},
+	{
+		"name":"Cypress Falls",
+		"id":"cypressfalls",
+		"km":"3",
+		"hours":"1.5",
+		"location": [
+		 	{"lang": "49.352092"},
+		 	{"long": "-123.241174"}
+		],
+		"options":[
+			{"name": "hike"},
+			{"name": "run"},
+			{"name": "walk"}
+		]
+	},
+	{
+		"name":"Capilano Pacific Trail",
+		"id":"mountseymour",
+		"km":"15",
+		"hours": "4",
+		"location": [
+		 	{"lang": "49.321492"}, 
+		 	{"long": "-123.140621"}
+		],
 		"options":[
 			{"name": "hike"},
 			{"name": "run"},
