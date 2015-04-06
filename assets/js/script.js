@@ -7,6 +7,8 @@ $(function(){
 		menuCatch = $('#menu .catch'),
         typeCatch = $('.type.catch'),
 		newRoute = $('#new-route'),
+        deleteRoute = $('.delete-route'),
+        doneRoute = $('.done-route'),
 		optionsPopup = $("#type-page");
 
     /*==========================================
@@ -53,12 +55,24 @@ $(function(){
         menuCatch.toggleClass("hidden");
     });
 
-    //////// POPUPS ////////////////////
-	newRoute.click(function(){
-		typeCatch.removeClass("hidden");
-		menuOptions.trigger("hide");
-	});
+    /////// OPTIONS /////////////////
+    newRoute.click(function(){
+        typeCatch.removeClass("hidden");
+        menuOptions.trigger("hide");
+    });
 
+    deleteRoute.click(function(){
+        //this goes to the local_storage.js file and deletes the current route
+        main.deleteUsingTrails();
+    });
+
+    doneRoute.click(function(){
+        //this goes to the local_storage.js file and finishes the current route
+        main.notUsingTrails();
+    });
+
+
+    //////// POPUPS ////////////////////
 	$("#type-page .options .button").click(function(){
 		typeCatch.addClass("hidden");
 	});

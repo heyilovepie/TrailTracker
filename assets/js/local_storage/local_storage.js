@@ -33,9 +33,7 @@ sklad.open(dbName, {
     throw err; 
   }
   $(function () {
-    var $trail       = $('#trail'),
-        $name        = $('#name'),
-        $add         = $('#add'),
+    var $name        = $('#name'),
         $add_name    = $('#add-name'),
         $list        = $('.list-of-trails'),
         $clear       = $('.clear-history'),
@@ -43,7 +41,9 @@ sklad.open(dbName, {
         $startPage   = $("#start-page"),
         $showName    = $('#show-the-name'),
         $ok          = $('.ok'),
-        $logout      = $(".logout");
+        $logout      = $(".logout"),
+        $delete_route= $(".delete-route"),
+        $done_route  = $(".done-route");
 
     function setStart(bool){
       if(bool == true){
@@ -57,6 +57,7 @@ sklad.open(dbName, {
     }
 
     function findName(conn) {
+      /* called by this script on init */
       conn
           .get({
             nameData:{description: sklad.DESC, index: 'name_search'}
@@ -80,7 +81,7 @@ sklad.open(dbName, {
           });
     }
 
-    var notUsingNames = function(conn) {
+    function notUsingNames(conn) {
       // stop all other names from being used at this time
       conn
           .get({
@@ -98,38 +99,46 @@ sklad.open(dbName, {
           });
     };
 
-    $add_name.click(function(){
-      if (!$name.val().trim() || $name.val().trim() == "default") { return; } //nothing there then do nothing
+    main.notUsingTrails = function() {
+      // stop using all trails
+      conn
+          .get({
+            profileData:{description: sklad.DESC, index: 'timestamp_search'}
+          }, function(err, data) {
+            if (err) { return console.error(err); }
 
-      var thisData = {
-        nameData: [
-          { 
-            timestamp: Date.now(),
-            name: $name.val().trim(),
-            using: true
-          }
-        ]
-      };
-
-      notUsingNames(conn);
-      conn.insert(thisData, function (err, insertedKeys) {
-        if (err) { 
-          if(err.message == "Key already exists in the object store."){ //already have this person :)
-            conn.upsert('nameData', thisData.nameData, function(err){ //replace the data for the name 
+            var hasName = false;
+            data.profileData.forEach(function(theTrail){
+              theTrail.value.done = true;
+              conn.upsert('profileData', theTrail.value, function(err){
                     if(err){ return console.error(); }
-                    $showName.text("Welcome back " + main.name + "!");
-                  });
-          }else{ return console.error(err); } //if the error is not bc 2 same names then return
-        }
-        main.name = $name.val().trim();
-        $showName.text("Hello " + main.name + ". Welcome to our app!");
-        $name.val('');
-        updateRows(conn);
-      })
-    });
+                    updateRows(conn);
+              });
+            });
+          });
+    };
+
+    main.deleteUsingTrails = function() {
+      // stop using all trails
+      conn
+          .get({
+            profileData:{description: sklad.DESC, index: 'timestamp_search'}
+          }, function(err, data) {
+            if (err) { return console.error(err); }
+
+            data.profileData.forEach(function(theTrail){
+              if( theTrail.value.done == false && theTrail.value.name == main.name ){ //if you have not finished the trail
+                conn.delete('profileData', theTrail.value.timestamp, function(err){ //delete it
+                      if(err){ return console.error(); }
+                      updateRows(conn);
+                });
+              }
+            });
+          });
+    };
  
     function updateRows(conn) {
-      ///UPDATE DATA
+      ///updates the list 
       conn
         .get({
           profileData: {description: sklad.DESC, index: 'timestamp_search'} //gets only the components with the right name
@@ -169,34 +178,6 @@ sklad.open(dbName, {
         });
     }
 
-    $clear.click(function(){
-      conn.clear(['profileData', 'nameData'], function (err) {
-            if (err) {
-                throw new Error(err.message);
-            }
-      });
-      $showName.text("Everything is gone!");
-      main.name = "default";
-      updateRows(conn);
-    });
-
-    $add.click(function(){
-      if (!$trail.val().trim()) { return; } //nothing there then do nothing
-      main.addTrail($trail.val().trim());
-      $trail.val("");
-    });
-
-    $ok.click(function(){
-      if(main.name != "default"){
-        setStart(false);
-        setTimeout(function(){
-            $showName.text("You are " + main.name + "...right?");
-        }, 150);
-      }else{
-        $showName.text("Please choose a Username!");
-      }
-    });
-
     main.addTrail = function (theTrail) {
       // this method is called from the trail controller when the check button is pressed
       var thisData = {
@@ -211,16 +192,70 @@ sklad.open(dbName, {
       };
 
       trail = thisData.profileData;
-
+      main.deleteUsingTrails(conn); //delete trails that are being used
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
         updateRows(conn);
       })
     };
 
+    /* ======================================
+      JQUERY CLICKS for only the start page
+    ========================================= */
+
+    $add_name.click(function(){
+      if (!$name.val().trim() || $name.val().trim() == "default") { return; } //nothing there then do nothing
+      var thisData = {
+        nameData: [
+          { 
+            timestamp: Date.now(),
+            name: $name.val().trim(),
+            using: true
+          }
+        ]
+      };
+      notUsingNames(conn);
+      conn.insert(thisData, function (err, insertedKeys) {
+        if (err) { 
+          if(err.message == "Key already exists in the object store."){ //already have this person :)
+            conn.upsert('nameData', thisData.nameData, function(err){ //replace the data for the name 
+                    if(err){ return console.error(); }
+                    $showName.text("Welcome back " + main.name + "!");
+                  });
+          }else{ return console.error(err); } //if the error is not bc 2 same names then return
+        }
+        main.name = $name.val().trim();
+        $showName.text("Hello " + main.name + ". Welcome to our app!");
+        $name.val('');
+        updateRows(conn);
+      })
+    }); //end of $add_name
+
+    $clear.click(function(){
+      conn.clear(['profileData', 'nameData'], function (err) {
+            if (err) {
+                throw new Error(err.message);
+            }
+      });
+      $showName.text("Everything is gone!");
+      main.name = "default";
+      updateRows(conn);
+    }); //end of clear
+
+    $ok.click(function(){
+      if(main.name != "default"){
+        setStart(false);
+        setTimeout(function(){
+            $showName.text("You are " + main.name + "...right?");
+        }, 150);
+      }else{
+        $showName.text("Please choose a Username!");
+      }
+    }); //end of $ok
+
     $logout.click(function(){
         $startPage.removeClass("hidden");
-    });
+    }); //end of $logout
 
     //init
     findName(conn);
