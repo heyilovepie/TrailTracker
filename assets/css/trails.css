@@ -44,7 +44,7 @@
 
 #trail #trail-menu{
 	position: absolute;
-	background-color: #00413c;
+	background-color: rgb(0, 65, 60);
 	width: 100%;
 	height: 60px;
 	bottom: 0;	
@@ -58,6 +58,13 @@
 #trail #trail-menu .button-holder button{
 	top: 10px;
 	margin: 10px 10px;
+	background-color: rgba(122, 204, 200, 0);
+	font-size: 2em;
+	border: 0;
+}
+
+#trail #trail-menu .button-holder button:hover{
+	background-color: rgb(122, 204, 200);
 }
 
 #trail #trail-menu .button-holder#holder-check{

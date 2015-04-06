@@ -257,9 +257,14 @@ li{
 	margin: 5px 5px;
 	text-align:center;
 	vertical-align:middle;
-	background-color:#7accc8;
+	background-color:rgba(122, 204, 200, 0);
 	border-radius: 5px;
 	border: 1px solid #00413c;
+	font-size: 1.25em;
+}
+
+#menu .toggle button:hover{
+	background-color:rgb(122, 204, 200);
 }
 
 #menu #menu-options button{
