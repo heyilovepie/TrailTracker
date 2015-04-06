@@ -3,7 +3,6 @@
 ==================================================================*/
 var dbName = 'ProfileData7';
 var myData;
-var trail;
 main.name = "default";
  
  //open database
@@ -43,7 +42,8 @@ sklad.open(dbName, {
         $ok          = $('.ok'),
         $logout      = $(".logout"),
         $delete_route= $(".delete-route"),
-        $done_route  = $(".done-route");
+        $done_route  = $(".done-route"),
+        $trail_icon  = $(".trail-icon");
 
     function setStart(bool){
       if(bool == true){
@@ -55,6 +55,24 @@ sklad.open(dbName, {
         $startPage.addClass("hidden");
       }
     }
+
+    main.findUsingTrail = function() {
+      // find the trail that is being used on init
+      conn
+          .get({
+            profileData:{description: sklad.DESC, index: 'timestamp_search'}
+          }, function(err, data) {
+            if (err) { return console.error(err); }
+            data.profileData.forEach(function(theTrail){
+              if( theTrail.value.done == false && theTrail.value.name == main.name ){ //if you have not finished the trail
+                  console.log("the trail is " + theTrail.value.trail);
+                  console.log("the data is " + main.data);
+                  main.trail = theTrail.value.trail;
+              }
+            });
+          });
+    };
+
 
     function findName(conn) {
       /* called by this script on init */
@@ -69,6 +87,7 @@ sklad.open(dbName, {
               if(theName.value.using){
                 main.name = theName.value.name;
                 hasName = true;
+                main.findUsingTrail();
                 return;
               }
             });
@@ -156,6 +175,8 @@ sklad.open(dbName, {
               if(data.value.name == main.name){ //if you have the right name
                 var $li = $(document.createElement('li'));
                 if(data.value.done){
+                  main.trail = data;
+                  console.log("set trail");
                   $li.css({'text-decoration' : 'line-through'})
                 }
                 else{
@@ -184,14 +205,15 @@ sklad.open(dbName, {
         profileData: [
           { 
             timestamp: Date.now(),
-            trail: theTrail,
+            trail: theTrail.id,
             done:false,
             name: main.name
           }
         ]
       };
 
-      trail = thisData.profileData;
+      main.trail = thisData.profileData;
+      $trail_icon.attr("src", theTrail.imgUrl); //makes the trail-icon be the trail you are on
       main.deleteUsingTrails(conn); //delete trails that are being used
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
@@ -205,6 +227,7 @@ sklad.open(dbName, {
 
     $add_name.click(function(){
       if (!$name.val().trim() || $name.val().trim() == "default") { return; } //nothing there then do nothing
+
       var thisData = {
         nameData: [
           { 

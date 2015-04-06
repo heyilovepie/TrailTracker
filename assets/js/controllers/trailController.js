@@ -21,6 +21,6 @@ main.controller('trailController', function($scope, $routeParams, dataProvider){
 
     check.click(function(){
       main.trail = $scope.type; //make the current trail be this trail
-      main.addTrail(main.trail.id);
+      main.addTrail(main.trail);
     });
 });
