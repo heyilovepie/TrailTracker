@@ -56,9 +56,14 @@ $(function(){
     });
 
     /////// OPTIONS /////////////////
+    $(".options-button").click(function(){
+        setTimeout(function(){
+            menuOptions.trigger("hide");
+        }, 100);
+    });
+
     newRoute.click(function(){
         typeCatch.removeClass("hidden");
-        menuOptions.trigger("hide");
     });
 
     deleteRoute.click(function(){

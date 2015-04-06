@@ -100,7 +100,7 @@ li{
 	/* The actual menu */
 	height: 60px;
 	position: relative;
-	background-color: #00746b;
+	background-color: #00413c;
 }
 
 #menu #menu-title{
@@ -177,7 +177,7 @@ li{
 }
 
 #menu #menu-options .options li a{
-	color: #FFFFFF
+	color: #FFFFFF;
 }
 
 /*   menu profile   */
@@ -223,6 +223,7 @@ li{
 }
 
 #menu #menu-options .toggle{
+	top: 2px;
     right: -50px;
     float: right;
 }
