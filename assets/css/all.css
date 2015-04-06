@@ -100,7 +100,7 @@ li{
 	/* The actual menu */
 	height: 60px;
 	position: relative;
-	background-color: #00746b;
+	background-color: #00413c;
 }
 
 #menu #menu-title{
@@ -183,7 +183,6 @@ li{
 	padding: 1em 0em 1em 0.5em;
 	display: block;
 	border-bottom: 1px solid #33A89F;
-
 }
 
 #menu #menu-options .options li a:hover{
@@ -233,6 +232,7 @@ li{
 }
 
 #menu #menu-options .toggle{
+	top: 2px;
     right: -50px;
     float: right;
 }
