@@ -301,9 +301,9 @@ li{
 }
 
 #menu #profile #menu-profile .list-of-trails{
-	width: 80%;
+	width: 70%;
 	height: 70%;
-	background-color: #00413c;
+	/*background-color: #00413c;*/
 	border-radius: 5px;
 }
 
