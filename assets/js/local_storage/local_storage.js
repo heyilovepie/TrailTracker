@@ -56,17 +56,15 @@ sklad.open(dbName, {
       }
     }
 
-    main.addMarker = function( trailData , bool ){
-      if(bool){ //if you want to ADD a marker
-        main.map.addMarker({
-          lat: parseFloat( trailData.location.lat ),
-          lng: parseFloat( trailData.location.lng ),
-          title: trailData.name,
-          click: function(e) {
-          alert("You clicked on the " + trailData.name + " marker");
-          }
-        });
-      }
+    main.addMarker = function( trailData ){
+      main.map.addMarker({
+        lat: parseFloat( trailData.location.lat ),
+        lng: parseFloat( trailData.location.lng ),
+        title: trailData.name,
+        click: function(e) {
+        alert("You clicked on the " + trailData.name + " marker");
+        }
+      });
     };
 
     main.findUsingData = function( theTrail ) {
@@ -76,8 +74,7 @@ sklad.open(dbName, {
           if( theTrail.value.trail == trailData.id ){ 
             main.trailData = trailData;
             $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
-            console.log( "using data from " + trailData.name );
-            main.addMarker( trailData , true );
+            main.addMarker( trailData );
           }
         });
       }else{ console.log("you have no main.data"); }
@@ -146,6 +143,7 @@ sklad.open(dbName, {
 
     main.notUsingTrails = function() {
       // stop using all trails
+      main.map.removeMarkers(); //remove all existing markers
       conn
           .get({
             profileData:{description: sklad.DESC, index: 'timestamp_search'}
@@ -154,17 +152,20 @@ sklad.open(dbName, {
 
             var hasName = false;
             data.profileData.forEach(function(theTrail){
-              theTrail.value.done = true;
-              conn.upsert('profileData', theTrail.value, function(err){
-                    if(err){ return console.error(); }
-                    updateRows(conn);
-              });
+              if( theTrail.value.name == main.name && theTrail.value.done == false ){
+                theTrail.value.done = true;
+                conn.upsert('profileData', theTrail.value, function(err){
+                      if(err){ return console.error(); }
+                      updateRows(conn);
+                });
+              }
             });
           });
     };
 
     main.deleteUsingTrails = function() {
-      // stop using all trails
+      // delete the trail you are using
+     main.map.removeMarkers(); //remove all existing markers
       conn
           .get({
             profileData:{description: sklad.DESC, index: 'timestamp_search'}
@@ -202,7 +203,6 @@ sklad.open(dbName, {
                 var $li = $(document.createElement('li'));
                 if(data.value.done){
                   main.trail = data;
-                  console.log("set trail");
                   $li.css({'text-decoration' : 'line-through'})
                 }
                 else{
@@ -240,9 +240,9 @@ sklad.open(dbName, {
 
       main.trail = thisData.profileData;
       main.trailData = trailData;
-      main.addMarker( trailData , true );
       $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
       main.deleteUsingTrails(conn); //delete trails that are being used
+      main.addMarker( trailData );
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
         updateRows(conn);
@@ -278,6 +278,8 @@ sklad.open(dbName, {
         main.name = $name.val().trim();
         $showName.text("Hello " + main.name + ". Welcome to our app!");
         $name.val('');
+        main.notUsingTrails();
+        main.findUsingTrail();
         updateRows(conn);
       })
     }); //end of $add_name
