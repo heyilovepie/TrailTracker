@@ -56,6 +56,19 @@ sklad.open(dbName, {
       }
     }
 
+    main.findUsingData = function( theTrail ) {
+      // find the trail data from the trail to get coordinates etc. called from main.findUsingTrail() (init)
+      if( main.data != undefined ){
+        main.data.forEach(function( trailData ){
+          if( theTrail.value.trail == trailData.id ){ 
+            main.trailData = trailData;
+            $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
+            console.log( "using data from " + trailData.name );
+          }
+        });
+      }else{ console.log("you have no main.data"); }
+    };
+
     main.findUsingTrail = function() {
       // find the trail that is being used on init
       conn
@@ -65,9 +78,8 @@ sklad.open(dbName, {
             if (err) { return console.error(err); }
             data.profileData.forEach(function(theTrail){
               if( theTrail.value.done == false && theTrail.value.name == main.name ){ //if you have not finished the trail
-                  console.log("the trail is " + theTrail.value.trail);
-                  console.log("the data is " + main.data);
-                  main.trail = theTrail.value.trail;
+                  main.trail = theTrail;
+                  main.findUsingData( theTrail );
               }
             });
           });
@@ -75,7 +87,7 @@ sklad.open(dbName, {
 
 
     function findName(conn) {
-      /* called by this script on init */
+      /* called by local_storage.js on init to find the past names and what the previous name was */
       conn
           .get({
             nameData:{description: sklad.DESC, index: 'name_search'}
@@ -92,9 +104,9 @@ sklad.open(dbName, {
               }
             });
 
-            if( hasName == false ){
+            if( hasName == false ){ //there were no names that are being used last.
               $showName.text("First time? Please pick a Username");
-            }else{
+            }else{ //there was a name that you are using.
               $showName.text("The last user was "+ main.name + ". Is that you?");
             }
           });
@@ -199,13 +211,13 @@ sklad.open(dbName, {
         });
     }
 
-    main.addTrail = function (theTrail) {
+    main.addTrail = function (trailData) {
       // this method is called from the trail controller when the check button is pressed
       var thisData = {
         profileData: [
           { 
             timestamp: Date.now(),
-            trail: theTrail.id,
+            trail: trailData.id,
             done:false,
             name: main.name
           }
@@ -213,7 +225,8 @@ sklad.open(dbName, {
       };
 
       main.trail = thisData.profileData;
-      $trail_icon.attr("src", theTrail.imgUrl); //makes the trail-icon be the trail you are on
+      main.trailData = trailData;
+      $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
       main.deleteUsingTrails(conn); //delete trails that are being used
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
