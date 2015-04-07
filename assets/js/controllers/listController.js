@@ -11,4 +11,5 @@ main.controller('listController', function($scope, $routeParams, dataProvider){
 
   	//change format
   	$(".map-container").addClass("hide");
+  	$("#home").removeClass("hidden");
 });

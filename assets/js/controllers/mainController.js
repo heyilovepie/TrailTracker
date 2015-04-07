@@ -5,4 +5,5 @@ main.controller('mainController', function($scope, $routeParams, dataProvider){
     	}
     });
     $(".map-container").removeClass("hide");
+    $("#home").addClass("hidden");
 });

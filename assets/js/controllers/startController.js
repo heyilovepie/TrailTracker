@@ -4,4 +4,6 @@ main.controller('listController', function($scope, $routeParams, dataProvider){
    			main.data = data;
     	}
     });
+
+  $("#home").removeClass("hidden");
 });

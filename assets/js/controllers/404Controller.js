@@ -12,4 +12,6 @@ main.controller('404Controller', function($scope, $routeParams, dataProvider){
 	}else{
 		$scope.message = "... ...too lazy to be funny."
 	}
+
+	$("#home").removeClass("hidden");
 });

@@ -4,4 +4,5 @@ main.controller('locationController', function($scope, $routeParams, dataProvide
        		main.data = data;
     	}
     });
+    $("#home").removeClass("hidden");
 });
