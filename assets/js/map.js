@@ -162,7 +162,7 @@ $(document).ready(function(){
             styles: bwStyles
         },
         click: function(e){
-            console.log("clicking on map");
+            //console.log("clicking on map");
         }
     })
 
@@ -178,7 +178,7 @@ $(document).ready(function(){
         alert("Your browser does not support geolocation");
       },
       always: function() {
-        alert("Done!");
+        alert("Done getting geolocation");
       }
     });
 });

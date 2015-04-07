@@ -115,7 +115,7 @@ sklad.open(dbName, {
             });
 
             if( hasName == false ){ //there were no names that are being used last.
-              $showName.text("First time? Please pick a Username");
+              $showName.text("First time in TrailTracker? Please pick a Username");
             }else{ //there was a name that you are using.
               $showName.text("The last user was "+ main.name + ". Is that you?");
             }
@@ -277,7 +277,7 @@ sklad.open(dbName, {
           }else{ return console.error(err); } //if the error is not bc 2 same names then return
         }
         main.name = $name.val().trim();
-        $showName.text("Hello " + main.name + ". Welcome to our app!");
+        $showName.text("Hello " + main.name + ". Welcome to TrailTracker!");
         $name.val('');
         main.notUsingTrails();
         main.findUsingTrail();
