@@ -296,6 +296,27 @@ li{
 	transition: all .7s ease-in;
 }
 
+#menu #profile #menu-profile .title{
+	width: 80%;
+}
+
+#menu #profile #menu-profile .list-of-trails{
+	width: 80%;
+	height: 70%;
+	background-color: #00413c;
+	border-radius: 5px;
+}
+
+#menu #profile #menu-profile .logout{
+	width: 90px;
+	height: 50px;
+	padding: 0 5px;
+	position: absolute;
+	right: 15px;
+	top: 120px;
+	margin: 0;
+}
+
 /*=======================================*/
 
 .popup-page{

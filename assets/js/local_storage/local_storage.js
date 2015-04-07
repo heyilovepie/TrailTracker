@@ -104,7 +104,7 @@ sklad.open(dbName, {
             nameData:{description: sklad.DESC, index: 'name_search'}
           }, function(err, data) {
             if (err) { return console.error(err); }
-
+            console.log(data);
             var hasName = false;
             data.nameData.forEach(function(theName){
               if(theName.value.using){
