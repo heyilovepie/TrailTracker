@@ -7,14 +7,11 @@
         "description": "Just off the shores of scenic Deep Cove in North Vancouver sits a large rocky outcrop known as Quarry Rock (also known as Grey Rock in some hiking books).",
         "km": "3.8",
         "hours": "1.5",
-        "location": [
+        "location": 
             {
-                "lang": "49.333991"
+                "lat": "49.333991",
+                "lng": "-122.936647"
             },
-            {
-                "long": "-122.936647"
-            }
-        ],
         "options": [
             {
                 "name": "hike"
@@ -29,14 +26,11 @@
         "description": "The Grouse Grind is Vancouver's most used trail and is renowned for its challenge in requiring physical strength and endurance in order to make it to the top.",
         "km": "2.9",
         "hours": "1.75",
-        "location": [
+        "location": 
             {
-                "lang": "49.372453"
+                "lat": "49.372453",
+                "lng": "-123.099466"
             },
-            {
-                "long": "-123.099466"
-            }
-        ],
         "options": [
             {
                 "name": "hike"
@@ -51,14 +45,11 @@
         "description": "Rice Lake is a calm, quiet lake located on the edge of the Lynn Headwaters Regional Park in North Vancouver. Just a short walk takes you around this lake that is full of life and natural beauty.",
         "km": "3",
         "hours": "1",
-        "location": [
+        "location":
             {
-                "lang": "49.356752"
+                "lat": "49.356752",
+                "lng": "-123.013529"
             },
-            {
-                "long": "-123.013529"
-            }
-        ],
         "options": [
             {
                 "name": "hike"
@@ -79,14 +70,11 @@
         "description": "Thunderbird Ridge is a relatively quick hike from the top of Grouse Mountain that offers scenic views of Crown Mountain, Kennedy Lake, and the city of Vancouver.",
         "km": "6",
         "hours": "2.5",
-        "location": [
+        "location":
             {
-                "lang": " 49.382949"
+                "lat": " 49.382949",
+                "lng": "-123.083179"
             },
-            {
-                "long": "-123.083179"
-            }
-        ],
         "options": [
             {
                 "name": "hike"
@@ -107,14 +95,11 @@
         "description": "St. Mark's Summit is part of the Howe Sound Crest Trail that spans over 30km from Cypress to a point along the Sea to Sky Highway near Porteau Cove.",
         "km": "11",
         "hours": "5",
-        "location": [
+        "location":
             {
-                "lang": "49.398464"
+                "lat": "49.398464",
+                "lng": "-123.204233"
             },
-            {
-                "long": "-123.204233"
-            }
-        ],
         "options": [
             {
                 "name": "hike"
@@ -135,14 +120,11 @@
         "description": "Just off the shores of scenic Deep Cove in North Vancouver sits a large rocky outcrop known as Quarry Rock (also known as Grey Rock in some hiking books).",
         "km": "15",
         "hours": "4",
-        "location": [
+        "location":
             {
-                "lang": "49.321492"
+                "lat": "49.321492",
+                "lng": "-123.140621"
             },
-            {
-                "long": "-123.140621"
-            }
-        ],
         "options": [
             {
                 "name": "hike"

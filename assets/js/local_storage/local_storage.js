@@ -56,6 +56,19 @@ sklad.open(dbName, {
       }
     }
 
+    main.addMarker = function( trailData , bool ){
+      if(bool){ //if you want to ADD a marker
+        main.map.addMarker({
+          lat: parseFloat( trailData.location.lat ),
+          lng: parseFloat( trailData.location.lng ),
+          title: trailData.name,
+          click: function(e) {
+          alert("You clicked on the " + trailData.name + " marker");
+          }
+        });
+      }
+    };
+
     main.findUsingData = function( theTrail ) {
       // find the trail data from the trail to get coordinates etc. called from main.findUsingTrail() (init)
       if( main.data != undefined ){
@@ -64,6 +77,7 @@ sklad.open(dbName, {
             main.trailData = trailData;
             $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
             console.log( "using data from " + trailData.name );
+            main.addMarker( trailData , true );
           }
         });
       }else{ console.log("you have no main.data"); }
@@ -226,6 +240,7 @@ sklad.open(dbName, {
 
       main.trail = thisData.profileData;
       main.trailData = trailData;
+      main.addMarker( trailData , true );
       $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
       main.deleteUsingTrails(conn); //delete trails that are being used
       conn.insert(thisData, function (err, insertedKeys) {
