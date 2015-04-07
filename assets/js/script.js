@@ -91,6 +91,13 @@ $(function(){
     /*==========================================
                     CLICKING
     ============================================*/
+
+    var menuOptionsH = new Hammer(menuOptions);
+    menuOptionsH.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+    menuOptionsH.on("panleft panright", function(ev) {
+        menu.Profile.toggleClass("open");
+    });
+
     /*
     var menuOptionsH = new Hammer(menuOptions, { multiUser: true });
     menuOptionsH.get('swipe').set({enable:true});
