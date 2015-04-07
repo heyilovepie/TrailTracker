@@ -104,7 +104,6 @@ sklad.open(dbName, {
             nameData:{description: sklad.DESC, index: 'name_search'}
           }, function(err, data) {
             if (err) { return console.error(err); }
-            console.log(data);
             var hasName = false;
             data.nameData.forEach(function(theName){
               if(theName.value.using){
@@ -209,15 +208,17 @@ sklad.open(dbName, {
                   $li.css({'text-decoration' : 'none'})
                 }
 
-                $li.text("trail name :" + data.value.trail);
+                $li.text(data.value.trail);
 
                 $li.click(function(){
-                  data.value.done = !data.value.done; //makes variable done the opposite.
-                  //then change the value of done in the conn
-                  conn.upsert('profileData', data.value, function(err){
-                    if(err){ return console.error(); }
-                    updateRows(conn); 
-                  });
+                  if( data.value.done == false ){
+                    data.value.done = true; //makes variable done the opposite.
+                    //then change the value of done in the conn
+                    conn.upsert('profileData', data.value, function(err){
+                      if(err){ return console.error(); }
+                      updateRows(conn); 
+                    });
+                  }
                 });
                 $list.append($li); //
               }
@@ -231,7 +232,7 @@ sklad.open(dbName, {
         profileData: [
           { 
             timestamp: Date.now(),
-            trail: trailData.id,
+            trail: trailData.name,
             done:false,
             name: main.name
           }
