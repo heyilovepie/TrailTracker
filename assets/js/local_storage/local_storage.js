@@ -61,7 +61,9 @@ sklad.open(dbName, {
         lng: parseFloat( theTrailData.location.lng ),
         title: theTrailData.user,
         click: function(e) {
-        alert("You clicked on the " + theTrailData.user + " marker");
+          console.log("should open popup");
+          $('.catch.trail').removeClass("hidden");
+          $('#trail-page').removeClass("hidden");
         }
       });
     };

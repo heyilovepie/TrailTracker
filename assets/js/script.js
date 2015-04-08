@@ -6,6 +6,9 @@ $(function(){
         menuProfileToggle = $('#menu #toggle-profile button'),
 		menuCatch = $('#menu .catch'),
         typeCatch = $('.type.catch'),
+        typePage = $('#type-page'),
+        trailPage = $('#trail-page'),
+        trailCatch = $('.trail.catch');
 		newRoute = $('#new-route'),
         deleteRoute = $('.delete-route'),
         doneRoute = $('.done-route'),
@@ -21,6 +24,7 @@ $(function(){
 	});
 
     menuCatch.click(function(e){
+        /* any popup catch clicked will close the menu options */
         menuOptions.trigger('hide');
     });
 
@@ -64,6 +68,7 @@ $(function(){
 
     newRoute.click(function(){
         typeCatch.removeClass("hidden");
+        typePage.removeClass("hidden");
     });
 
     deleteRoute.click(function(){
@@ -80,11 +85,25 @@ $(function(){
     //////// POPUPS ////////////////////
 	$("#type-page .options .button").click(function(){
 		typeCatch.addClass("hidden");
+        typePage.addClass("hidden");
 	});
 
+     $("#trail-page .button").click(function(){
+        trailCatch.addClass("hidden");
+        trailPage.addClass("hidden");
+    });
+
     typeCatch.click(function(e){
-        if($(e.target).is(typeCatch)){
-            typeCatch.addClass("hidden");
+        //close popup if catch is pressed
+         typeCatch.addClass("hidden");
+         typePage.addClass("hidden");
+    });
+
+    trailCatch.click(function(e){
+        //close popup if catch is pressed
+        if($(e.target).is(trailCatch)){
+            trailCatch.addClass("hidden");
+            trailPage.addClass("hidden");
         }
     });
 

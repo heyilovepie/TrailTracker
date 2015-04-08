@@ -135,7 +135,7 @@ li{
 }
 
 /* #menu #options */
-#menu .catch{
+.catch{
 	position: absolute;
 	background-color: #A8A8A8; /*#9E9E9E*/
 	opacity: .5;
@@ -319,7 +319,7 @@ li{
 
 /*=======================================*/
 
-.popup-page{
+#start-page{
 	position: absolute;
 	background-color: #ffffff;
 	box-sizing: border-box;
@@ -328,9 +328,6 @@ li{
 	text-align:center;
 	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.37);
 	z-index: 6;
-}
-
-#start-page{
 	width: 100%;
 	height: 100%;
 	border-radius: 0;
@@ -385,27 +382,29 @@ li{
 	font-size: 1em;
 }
 
-#type-page{
+/*================*/
+
+.catch.popup{
+	z-index: 5;
+}
+
+.popup-page{
+	position: absolute;
+	background-color: #ffffff;
+	box-sizing: border-box;
+	opacity: 1;
+	position:fixed;
+	text-align:center;
+	box-shadow: 0 1px 7px 0 rgba(0,0,0,0.37);
+	z-index: 6;
+}
+
+.popup-page{
 	width: 90%;
 	border-radius: 4px;
 	margin-left: -40%;
 	left: 45%;
 	bottom: 29%;
-}
-
-.catch.type{
-	opacity: 1;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	z-index: 5;
-	position:fixed;
-	transition: all 2s ease-in;
-}
-
-.catch.type.hidden{
-	opacity: 0;
 }
 
 .popup-page .options .option{
@@ -416,12 +415,12 @@ li{
 	display:  inline-block;
 }
 
-#type-page h2 {
+.popup-page h2 {
 	color: #676767;
 	font-size: 1.5em;
 }
 
-#type-page .button {
+.popup-page .button {
 	width: 80%;
 	height: 10%;
 	background-color: #ddd;
@@ -429,7 +428,7 @@ li{
 	padding: 0.5em 0em 0.5em 0em;
 }
 
-#type-page .button:hover{
+.popup-page .button:hover{
 	background-color: #ABDAD6;	
 }
 
@@ -473,7 +472,7 @@ li{
 /* LANDSCAPE MODE */
 @media only screen and (orientation: landscape) {
 	/* Pop-up */
-	#type-page {
+	.popup-page {
 		width: 69%;
 		bottom: 17%;
 		margin-left: -35%;

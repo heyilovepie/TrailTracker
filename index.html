@@ -70,7 +70,7 @@
   <body>
 
     <!-- this is the start page -->
-    <div id="start-page" class="popup-page">
+    <div id="start-page">
         <div id="start-page-container-t" class="start-page-container">
             <input type='text' id='name'> <button id='add-name'>Add Name</button>
         </div>
@@ -146,22 +146,39 @@
     <div> 
 
     <!-- pop up menu for catalogue vs location -->
-    <div class="catch type hidden">
-        <div id="type-page" class="popup-page">
-           <h2><strong>SORT BY</strong></h2>
-            <div class="options">
-                <div class="option">
-                    <div class="button">
-                        <a href="#/list"><h4>Catalogue</h4></a>
-                    </div>
-                </div>
-                <div class="option">
-                    <div class="button">
-                        <a href="#/404"><h4>Location</h4></a>
-                    </div>
+    <div class="catch type popup hidden"></div>
+    <div id="type-page" class="popup-page hidden">
+       <h2><strong>SORT BY</strong></h2>
+        <div class="options">
+            <div class="option">
+                <div class="button">
+                    <a href="#/list"><h4>Catalogue</h4></a>
                 </div>
             </div>
-        </div> <!-- end of type page -->
-    </div> <!-- end of catch page -->
+            <div class="option">
+                <div class="button">
+                    <a href="#/404"><h4>Location</h4></a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end of type page -->
+
+    <!--- the trail menu -->
+    <div class="catch trail popup hidden"></div>
+    <div id="trail-page" class="popup-page hidden">
+       <h2><strong>NAME OF TRAIL</strong></h2>
+            <div class="button">
+                <a href="#/404"><h4>See Trail</h4></a>
+            </div>
+            <div class="options">
+                <div class="option">
+                    <li class="delete-route options-button"><a>Delete Route</a></li>
+                </div>
+                <div class="option">
+                    <li class="done-route options-button"><a>Done Route</a></li>
+            </div>
+    </div>
+        </div>
+    </div> <!-- end of trail page -->
   </body> <!--end of html body -->
 </html> <!-- end of html -->
