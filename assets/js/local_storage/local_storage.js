@@ -292,6 +292,31 @@ sklad.open(dbName, {
     }); //end of $add_name
 
     $clear.click(function(){
+      conn
+        .get({
+          profileData:{description: sklad.DESC, index: 'timestamp_search'}
+        }, function(err, data) {
+          if (err) { return console.error(err); }
+
+          data.profileData.forEach(function(theTrail){ //for each trail
+            if( theTrail.value.user == main.name ){ //if the trail is this user's
+              conn.delete('profileData', theTrail.value.timestamp, function(err){ //delete it
+                    if(err){ return console.error(); }
+              });
+            }
+          });
+
+          conn.delete('nameData', main.name, function(err){ //delete the name
+            if(err){ return console.error(); }
+            $showName.text("Everything from the user " + main.name + " is gone!");
+            main.name = "default";
+            updateRows(conn);
+          });
+        });
+    }); //end of clear
+
+    /*
+    $clear.click(function(){
       conn.clear(['profileData', 'nameData'], function (err) {
             if (err) {
                 throw new Error(err.message);
@@ -301,6 +326,7 @@ sklad.open(dbName, {
       main.name = "default";
       updateRows(conn);
     }); //end of clear
+*/
 
     $ok.click(function(){
       if(main.name != "default"){
