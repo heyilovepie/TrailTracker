@@ -10,6 +10,6 @@ main.controller('listController', function($scope, $routeParams, dataProvider){
   	$scope.data = main.data;
 
   	//change format
-  	$(".map-container").addClass("hide");
+  	$(".map-container").addClass("hidden");
   	$("#home").removeClass("hidden");
 });

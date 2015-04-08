@@ -4,5 +4,6 @@ main.controller('locationController', function($scope, $routeParams, dataProvide
        		main.data = data;
     	}
     });
+    $(".map-container").addClass("hidden");
     $("#home").removeClass("hidden");
 });

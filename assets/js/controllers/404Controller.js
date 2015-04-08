@@ -1,5 +1,4 @@
 main.controller('404Controller', function($scope, $routeParams, dataProvider){
-	$(".map-container").addClass("hidden");
 	console.log("first");
 	$scope.message = "Something seriously screwed up...";
 	$scope.rand = parseInt(Math.random()* 10);
@@ -13,5 +12,6 @@ main.controller('404Controller', function($scope, $routeParams, dataProvider){
 		$scope.message = "... ...too lazy to be funny."
 	}
 
+	$(".map-container").addClass("hidden");
 	$("#home").removeClass("hidden");
 });

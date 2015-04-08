@@ -87,8 +87,13 @@ $(function(){
 		typeCatch.addClass("hidden");
         typePage.addClass("hidden");
 	});
+    
+    $("#trail-page .button").click(function(){
+        trailCatch.addClass("hidden");
+        trailPage.addClass("hidden");
+    });
 
-     $("#trail-page .button").click(function(){
+     $("#trail-page .option").click(function(){
         trailCatch.addClass("hidden");
         trailPage.addClass("hidden");
     });

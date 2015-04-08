@@ -15,7 +15,7 @@ main.controller('trailController', function($scope, $routeParams, dataProvider){
       }
     });
 
-    $(".map-container").addClass("hide");
+    $(".map-container").addClass("hidden");
     $("#home").removeClass("hidden");
 
     var check = $('#trail #trail-menu .button-holder#holder-check');

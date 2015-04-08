@@ -42,7 +42,6 @@
     <!--controllers-->
     <script type="text/javascript" src="assets/js/controllers/mainController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/404Controller.js"></script>
-    <script type="text/javascript" src="assets/js/controllers/startController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/listController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/trailController.js"></script>
     <script type="text/javascript" src="assets/js/controllers/locationController.js"></script>
@@ -166,18 +165,19 @@
     <!--- the trail menu -->
     <div class="catch trail popup hidden"></div>
     <div id="trail-page" class="popup-page hidden">
-       <h2><strong>NAME OF TRAIL</strong></h2>
-            <div class="button">
-                <a href="#/404"><h4>See Trail</h4></a>
+        <h2 class="name-of-trail">name</h2>
+        <button>
+            <input class="icon trail-icon" type="image" src="assets/imgs/rice.jpg" alt="character-pic">
+        </button>
+        <div class="button">
+            <a href="#/404" class="go-to-trail"><h4>See Trail</h4></a>
+        </div>
+        <div class="options">
+            <div class="option">
+                <li class="delete-route options-button"><a>Delete Route</a></li>
             </div>
-            <div class="options">
-                <div class="option">
-                    <li class="delete-route options-button"><a>Delete Route</a></li>
-                </div>
-                <div class="option">
-                    <li class="done-route options-button"><a>Done Route</a></li>
-            </div>
-    </div>
+            <div class="option">
+                <li class="done-route options-button"><a>Done Route</a></li>
         </div>
     </div> <!-- end of trail page -->
   </body> <!--end of html body -->

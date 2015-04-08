@@ -42,7 +42,9 @@ sklad.open(dbName, {
         $logout      = $(".logout"),
         $delete_route= $(".delete-route"),
         $done_route  = $(".done-route"),
-        $trail_icon  = $(".trail-icon");
+        $trail_icon  = $(".trail-icon"),
+        $trail_name  = $(".name-of-trail"),
+        $trail_button= $(".go-to-trail");
 
     function setStart(bool){
       if(bool == true){
@@ -55,13 +57,19 @@ sklad.open(dbName, {
       }
     }
 
+    main.trailPopup = function( theTrailData ){
+      console.log("trailpopup");
+      $trail_icon.attr("src", theTrailData.imgUrl); //makes the trail-icon be the trail you are on
+      $trail_name.text( theTrailData.name );
+      $trail_button.attr("href", "#/catalogue/" + theTrailData.id ); //makes the trail-icon be the trail you are on
+    }
+
     main.addMarker = function( theTrailData ){
       main.map.addMarker({
         lat: parseFloat( theTrailData.location.lat ),
         lng: parseFloat( theTrailData.location.lng ),
         title: theTrailData.user,
         click: function(e) {
-          console.log("should open popup");
           $('.catch.trail').removeClass("hidden");
           $('#trail-page').removeClass("hidden");
         }
@@ -78,7 +86,7 @@ sklad.open(dbName, {
             data.profileData.forEach(function(theTrail){
               if( theTrail.value.done == false && theTrail.value.user == main.name ){ //if you have not finished the trail
                   main.trail = theTrail.value; //sets global to the trail data
-                  $trail_icon.attr("src", main.trail.imgUrl); //makes the trail-icon be the trail you are on
+                  main.trailPopup( main.trail ); //add visuals to popup
                   main.addMarker( main.trail ); //add a marker
               }
             });
@@ -238,7 +246,7 @@ sklad.open(dbName, {
         ]
       };
       main.trail = thisData.profileData[0];
-      $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
+      main.trailPopup( main.trail ); //add visuals to popup
       main.deleteUsingTrails(conn); //delete trails that are being used
       main.addMarker( main.trail );
       conn.insert(thisData, function (err, insertedKeys) {
