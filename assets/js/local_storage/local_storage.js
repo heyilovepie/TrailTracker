@@ -1,8 +1,7 @@
 /* ================================================================
                   storing data based on person
 ==================================================================*/
-var dbName = 'ProfileData7';
-var myData;
+var dbName = 'ProfileData9';
 main.name = "default";
  
  //open database
@@ -14,9 +13,9 @@ sklad.open(dbName, {
         autoIncrement: true, 
         keyPath: 'timestamp'
       });
-      objStore.createIndex('description_search', 'trail', {unique: false});
+      objStore.createIndex('description_search', 'name', {unique: false});
       objStore.createIndex('timestamp_search', 'timestamp', {unique: false});
-      objStore.createIndex('the_name', 'name', {unique: false});
+      objStore.createIndex('user', 'user', {unique: false});
       objStore.createIndex('done', 'done', {unique: false});
 
       var nameStore = database.createObjectStore('nameData', {
@@ -56,28 +55,15 @@ sklad.open(dbName, {
       }
     }
 
-    main.addMarker = function( trailData ){
+    main.addMarker = function( theTrailData ){
       main.map.addMarker({
-        lat: parseFloat( trailData.location.lat ),
-        lng: parseFloat( trailData.location.lng ),
-        title: trailData.name,
+        lat: parseFloat( theTrailData.location.lat ),
+        lng: parseFloat( theTrailData.location.lng ),
+        title: theTrailData.user,
         click: function(e) {
-        alert("You clicked on the " + trailData.name + " marker");
+        alert("You clicked on the " + theTrailData.user + " marker");
         }
       });
-    };
-
-    main.findUsingData = function( theTrail ) {
-      // find the trail data from the trail to get coordinates etc. called from main.findUsingTrail() (init)
-      if( main.data != undefined ){
-        main.data.forEach(function( trailData ){
-          if( theTrail.value.trail == trailData.id ){ 
-            main.trailData = trailData;
-            $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
-            main.addMarker( trailData );
-          }
-        });
-      }else{ console.log("you have no main.data"); }
     };
 
     main.findUsingTrail = function() {
@@ -88,9 +74,10 @@ sklad.open(dbName, {
           }, function(err, data) {
             if (err) { return console.error(err); }
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.done == false && theTrail.value.name == main.name ){ //if you have not finished the trail
-                  main.trail = theTrail;
-                  main.findUsingData( theTrail );
+              if( theTrail.value.done == false && theTrail.value.user == main.name ){ //if you have not finished the trail
+                  main.trail = theTrail.value; //sets global to the trail data
+                  $trail_icon.attr("src", main.trail.imgUrl); //makes the trail-icon be the trail you are on
+                  main.addMarker( main.trail ); //add a marker
               }
             });
           });
@@ -151,7 +138,7 @@ sklad.open(dbName, {
 
             var hasName = false;
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.name == main.name && theTrail.value.done == false ){
+              if( theTrail.value.user == main.name && theTrail.value.done == false ){
                 theTrail.value.done = true;
                 conn.upsert('profileData', theTrail.value, function(err){
                       if(err){ return console.error(); }
@@ -172,7 +159,7 @@ sklad.open(dbName, {
             if (err) { return console.error(err); }
 
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.done == false && theTrail.value.name == main.name ){ //if you have not finished the trail
+              if( theTrail.value.done == false && theTrail.value.user == main.name ){ //if you have not finished the trail
                 conn.delete('profileData', theTrail.value.timestamp, function(err){ //delete it
                       if(err){ return console.error(); }
                       updateRows(conn);
@@ -198,17 +185,17 @@ sklad.open(dbName, {
           $list.empty(); //make the list varaible have no variables because you will fill it
               
           myData.profileData.forEach(function(data){ //for each in to do list add text to the element
-              if(data.value.name == main.name){ //if you have the right name
+              if(data.value.user == main.name){ //if you have the right name
                 var $li = $(document.createElement('li'));
                 if(data.value.done){
-                  main.trail = data;
+                  main.trail = data.value;
                   $li.css({'text-decoration' : 'line-through'})
                 }
                 else{
                   $li.css({'text-decoration' : 'none'})
                 }
 
-                $li.text(data.value.trail);
+                $li.text(data.value.name);
 
                 $li.click(function(){
                   if( data.value.done == false ){
@@ -230,20 +217,28 @@ sklad.open(dbName, {
       // this method is called from the trail controller when the check button is pressed
       var thisData = {
         profileData: [
-          { 
-            timestamp: Date.now(),
-            trail: trailData.name,
-            done:false,
-            name: main.name
+          {
+            //add all info from the json file
+            name        : trailData.name,
+            id          : trailData.id,
+            imgUrl      : trailData.imgUrl,
+            difficulty  : trailData.difficulty,
+            description : trailData.description,
+            km          : trailData.km,
+            hours       : trailData.hours,
+            location    : trailData.location,
+            options     : trailData.options, 
+            //add additional info
+            user        : main.name,
+            done        : false,
+            timestamp   : Date.now()
           }
         ]
       };
-
-      main.trail = thisData.profileData;
-      main.trailData = trailData;
+      main.trail = thisData.profileData[0];
       $trail_icon.attr("src", trailData.imgUrl); //makes the trail-icon be the trail you are on
       main.deleteUsingTrails(conn); //delete trails that are being used
-      main.addMarker( trailData );
+      main.addMarker( main.trail );
       conn.insert(thisData, function (err, insertedKeys) {
         if (err) { return console.error(err); }
         updateRows(conn);
