@@ -282,6 +282,7 @@ sklad.open(dbName, {
         main.notUsingTrails();
         main.findUsingTrail();
         updateRows(conn);
+        main.setCenterMap(); //sets the center of the map to your location
       })
     }); //end of $add_name
 
