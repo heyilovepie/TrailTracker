@@ -4,7 +4,6 @@
 var dbName = 'ProfileData9';
 main.me = {};
 main.trail = {};
-main.me.name = "default";
  
  //open database
 sklad.open(dbName, {
@@ -66,7 +65,7 @@ sklad.open(dbName, {
     }
 
     main.addMarker = function( theTrailData ){
-      main.trail.marker = {
+      var trailMarker = {
         lat: parseFloat( theTrailData.location.lat ),
         lng: parseFloat( theTrailData.location.lng ),
         title: theTrailData.name,
@@ -76,11 +75,11 @@ sklad.open(dbName, {
           $('#trail-page').removeClass("hidden");
         }
       };
-      main.map.addMarker(main.trail.marker);
+      main.trail.marker = main.map.addMarker( trailMarker );
     };
 
     main.addMe = function( me ){
-      main.me.marker = {
+      var meMarker = {
         lat: parseFloat( me.location.lat ),
         lng: parseFloat( me.location.lng ),
         title: me.name,
@@ -100,7 +99,7 @@ sklad.open(dbName, {
           $("#menu #menu-profile").trigger("show"); //show profile menu
         }
       };
-      main.map.addMarker( main.me.marker );
+      main.me.marker = main.map.addMarker( meMarker );
     };
 
     main.findUsingTrail = function() {
@@ -166,7 +165,6 @@ sklad.open(dbName, {
 
     main.notUsingTrails = function() {
       // stop using all trails
-      main.map.removeMarkers(); //remove all existing markers
       conn
           .get({
             profileData:{description: sklad.DESC, index: 'timestamp_search'}
@@ -188,7 +186,6 @@ sklad.open(dbName, {
 
     main.deleteUsingTrails = function() {
       // delete the trail you are using
-     main.map.removeMarkers(); //remove all existing markers
       conn
           .get({
             profileData:{description: sklad.DESC, index: 'timestamp_search'}
@@ -271,10 +268,12 @@ sklad.open(dbName, {
           }
         ]
       };
+      main.map.removeMarkers(); //remove all existing markers
       main.deleteUsingTrails(conn); //delete trails that are being used
       main.trail = thisData.profileData[0]; //set the trail to be this one 
       main.trailPopup( main.trail ); //add visuals to popup menu
       main.addMarker( main.trail ); // add the new marker at this location
+      main.addMe ( main.me ); //add marker for me
       conn.insert(thisData, function (err, insertedKeys) { //insert data into local storage
         if (err) { return console.error(err); }
         updateRows(conn);
@@ -286,7 +285,7 @@ sklad.open(dbName, {
     ========================================= */
 
     $add_name.click(function(){
-      if (!$name.val().trim() || $name.val().trim() == "default") { return; } //nothing there then do nothing
+      if (!$name.val().trim() || $name.val().trim() == undefined) { return; } //nothing there then do nothing
 
       var thisData = {
         nameData: [
@@ -314,9 +313,10 @@ sklad.open(dbName, {
         main.me = thisData.nameData[0]; //set main.me
         main.me.location = loc; //reset location
         main.geoLocate( main.setCenterMap );
+        main.map.removeMarkers(); //remove all existing markers
         main.addMe ( main.me ); //add marker for me
         main.notUsingTrails(); //stop using all trails
-        main.findUsingTrail(); //find the trail that you are using now
+        main.findUsingTrail(); //find the trail that you are using now and add the marker
         updateRows(conn);
       })
     }); //end of $add_name
@@ -355,13 +355,13 @@ sklad.open(dbName, {
             }
       });
       $showName.text("Everything is gone!");
-      main.me.name = "default";
+      main.me = {};
       updateRows(conn);
     }); //end of clear
 */
 
     $ok.click(function(){
-      if(main.me.name != "default"){
+      if(main.me.name != undefined){ //if you have picked a name
         setStart(false);
         setTimeout(function(){
             $showName.text("You are " + main.me.name + "...right?");
@@ -409,15 +409,21 @@ main.geoLocate = function( passedFunction ){
 };
 
 $(function(){
-      main.setCenterMap = function(){
+    main.setCenterMap = function(){
         /* set the center of the map to  be your location */
         main.map.setCenter(main.me.location.lat, main.me.location.lng);
         main.addMe( main.me );
     }
 
+    main.setMyCoor = function(){
+        /* set the center of the map to  be your location */
+        var latlng = new google.maps.LatLng( main.me.location.lat , main.me.location.lng );
+        main.me.marker.setPosition( latlng );
+    }
+
     function getLocation(){
         var x = function(){};
-        main.geoLocate( x );
+        main.geoLocate( main.setMyCoor );
         if( main.loopGetLocation ){ //allows you to break the link
             setInterval( getLocation, 3000); //get location every 3 seconds
         }
