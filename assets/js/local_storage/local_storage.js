@@ -32,20 +32,20 @@ sklad.open(dbName, {
     throw err; 
   }
   $(function () {
-    var $name        = $('#name'),
-        $add_name    = $('#add-name'),
-        $list        = $('.list-of-trails'),
-        $clear       = $('.clear-history'),
-        $nameTitle   = $("#menu .profile #existing-name h1"),
-        $startPage   = $("#start-page"),
-        $showName    = $('#show-the-name'),
-        $ok          = $('.ok'),
-        $logout      = $(".logout"),
-        $delete_route= $(".delete-route"),
-        $done_route  = $(".done-route"),
-        $trail_icon  = $(".trail-icon"),
-        $trail_name  = $(".name-of-trail"),
-        $trail_button= $(".go-to-trail");
+    var $name         = $('#name'),
+        $add_name     = $('#add-name'),
+        $list         = $('.list-of-trails'),
+        $clear        = $('.clear-history'),
+        $nameTitle    = $("#menu .profile #existing-name h1"),
+        $startPage    = $("#start-page"),
+        $showName     = $('#show-the-name'),
+        $ok           = $('.ok'),
+        $logout       = $(".logout"),
+        $delete_route = $(".delete-route"),
+        $done_route   = $(".done-route"),
+        $trail_icon   = $(".trail-icon"),
+        $trail_name   = $(".name-of-trail"),
+        $trail_button = $(".go-to-trail");
 
     function setStart(bool){
       if(bool == true){
@@ -66,11 +66,11 @@ sklad.open(dbName, {
 
     main.addMarker = function( theTrailData ){
       var trailMarker = {
-        lat: parseFloat( theTrailData.location.lat ),
-        lng: parseFloat( theTrailData.location.lng ),
-        title: theTrailData.name,
-        icon: "assets/imgs/marker.png",
-        click: function(e) {
+        lat    : parseFloat( theTrailData.location.lat ),
+        lng    : parseFloat( theTrailData.location.lng ),
+        title  : theTrailData.name,
+        icon   : "assets/imgs/marker.png",
+        click  : function(e) {
           $('.catch.trail').removeClass("hidden");
           $('#trail-page').removeClass("hidden");
         }
@@ -80,10 +80,10 @@ sklad.open(dbName, {
 
     main.addMe = function( me ){
       var meMarker = {
-        lat: parseFloat( me.location.lat ),
-        lng: parseFloat( me.location.lng ),
-        title: me.name,
-        icon: "assets/imgs/me.png",
+        lat    : parseFloat( me.location.lat ),
+        lng    : parseFloat( me.location.lng ),
+        title  : me.name,
+        icon   : "assets/imgs/me.png",
         /*
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
@@ -131,7 +131,7 @@ sklad.open(dbName, {
             data.nameData.forEach(function(theName){
               if(theName.value.using){
                 main.me.name = theName.value.name;
-                hasName = true;
+                hasName      = true;
                 main.findUsingTrail();
                 return;
               }
@@ -301,25 +301,35 @@ sklad.open(dbName, {
         if (err) { 
           if(err.message == "Key already exists in the object store."){ //already have this person :)
             conn.upsert('nameData', thisData.nameData, function(err){ //replace the data for the name 
-                    if(err){ return console.error(); }
-                    $showName.text("Welcome back " + main.me.name + "!");
-                  });
-          }else{ return console.error(err); } //if the error is not bc 2 same names then return
+              if(err){ return console.error(); }
+              addNameCommands( thisData );
+              $showName.text("Welcome back " + main.me.name + "!");
+            });
+          }else{ 
+            $showName.text("Urg there was an error finding your name");
+            return console.error(err); //if the error is not bc 2 same names then return
+          } 
+        }else{
+          addNameCommands( thisData );
+          $showName.text("Hello " + main.me.name + ". Welcome to TrailTracker!");
         }
-        $showName.text("Hello " + main.me.name + ". Welcome to TrailTracker!");
-        $name.val(''); //show no text in the input bar 
-        var loc = main.me.location; //save location of you to local var
-        main.trail = {}; //reset trail
-        main.me = thisData.nameData[0]; //set main.me
-        main.me.location = loc; //reset location
-        main.geoLocate( main.setCenterMap );
-        main.map.removeMarkers(); //remove all existing markers
-        main.addMe ( main.me ); //add marker for me
-        main.notUsingTrails(); //stop using all trails
-        main.findUsingTrail(); //find the trail that you are using now and add the marker
-        updateRows(conn);
       })
     }); //end of $add_name
+
+    var addNameCommands = function( thisData ){
+      /* called by $add_name.click in 2 dif parts, separated for cleanness */
+      $name.val(''); //show no text in the input bar 
+      var loc = main.me.location; //save location of you to local var
+      main.trail = {}; //reset trail
+      main.me = thisData.nameData[0]; //set main.me
+      main.me.location = loc; //reset location
+      main.geoLocate( main.setCenterMap );
+      main.map.removeMarkers(); //remove all existing markers
+      main.addMe ( main.me ); //add marker for me
+      main.notUsingTrails(); //stop using all trails
+      main.findUsingTrail(); //find the trail that you are using now and add the marker
+      updateRows(conn);
+    }
 
     $clear.click(function(){
       conn
@@ -432,6 +442,6 @@ $(function(){
     main.getLocationAndSetCenter = function(){
         /* set the center the first time */
         main.geoLocate( main.setCenterMap );
-        //setInterval( getLocation, 3000); //get location every 3 seconds
+        setInterval( getLocation, 3000); //get location every 3 seconds
     };
 })
