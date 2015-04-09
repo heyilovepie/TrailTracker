@@ -248,32 +248,59 @@ sklad.open(dbName, {
 
     main.addTrail = function (trailData) {
       // this method is called from the trail controller when the check button is pressed
-      var thisData = {
-        profileData: [
-          {
-            //add all info from the json file
-            name        : trailData.name,
-            id          : trailData.id,
-            imgUrl      : trailData.imgUrl,
-            difficulty  : trailData.difficulty,
-            description : trailData.description,
-            km          : trailData.km,
-            hours       : trailData.hours,
-            location    : trailData.location,
-            options     : trailData.options, 
-            //add additional info
-            user        : main.me.name,
-            done        : false,
-            timestamp   : Date.now()
-          }
-        ]
-      };
+      if( trailData.name == "test" ){
+        var thisData = {
+          profileData: [
+            {
+              //add all info from the json file
+              name        : trailData.name,
+              id          : trailData.id,
+              imgUrl      : trailData.imgUrl,
+              difficulty  : trailData.difficulty,
+              description : trailData.description,
+              km          : trailData.km,
+              hours       : trailData.hours,
+              location    : main.me.location,
+              options     : trailData.options, 
+              //add additional info
+              user        : main.me.name,
+              started     : false,
+              done        : false,
+              timestamp   : Date.now()
+            }
+          ]
+        };
+        console.log(thisData.profileData[0].location);
+      } else {
+        var thisData = {
+          profileData: [
+            {
+              //add all info from the json file
+              name        : trailData.name,
+              id          : trailData.id,
+              imgUrl      : trailData.imgUrl,
+              difficulty  : trailData.difficulty,
+              description : trailData.description,
+              km          : trailData.km,
+              hours       : trailData.hours,
+              location    : trailData.location,
+              options     : trailData.options, 
+              //add additional info
+              user        : main.me.name,
+              started     : false,
+              done        : false,
+              timestamp   : Date.now()
+            }
+          ]
+        };
+      }
       main.map.removeMarkers(); //remove all existing markers
       main.deleteUsingTrails(conn); //delete trails that are being used
       main.trail = thisData.profileData[0]; //set the trail to be this one 
       main.trailPopup( main.trail ); //add visuals to popup menu
       main.addMarker( main.trail ); // add the new marker at this location
       main.addMe ( main.me ); //add marker for me
+      main.map.setCenter(main.trail.location.lat, main.trail.location.lng); //set the map to face the trail
       conn.insert(thisData, function (err, insertedKeys) { //insert data into local storage
         if (err) { return console.error(err); }
         updateRows(conn);
@@ -425,14 +452,48 @@ $(function(){
         main.addMe( main.me );
     }
 
+    radians = function( number ){
+      return number * Math.PI / 180;
+    };
+
+    main.checkStartTrail = function(){
+      /* find out of the person is close enough to the start of the trail */
+      if( main.trail.location != undefined && main.trail.location.lat != undefined ){
+        var lat1 = parseFloat( main.me.location.lat );
+        var lat2 = parseFloat( main.trail.location.lat );
+        var lng1 = parseFloat( main.me.location.lng );
+        var lng2 = parseFloat( main.trail.location.lng );
+
+        //this is from http://www.movable-type.co.uk/scripts/latlong.html
+        var R = 6371000; // metres
+        var φ1 = radians( lat1 );
+        var φ2 = radians( lat2 );
+        var Δφ = radians( lat2-lat1 );
+        var Δλ = radians( lng2-lng1 );
+
+        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+
+        if( d > 1000 ){
+          console.log("you are " + d +" away from the trail");
+        }
+
+        console.log("you are " + d +" m away from the trail");
+      }
+    }
+
     main.setMyCoor = function(){
         /* set the center of the map to  be your location */
         var latlng = new google.maps.LatLng( main.me.location.lat , main.me.location.lng );
         main.me.marker.setPosition( latlng );
+        main.checkStartTrail();
     }
 
     function getLocation(){
-        var x = function(){};
+      /*gets the location but changes the coordinates of the marker instead of changing the location if the map */
         main.geoLocate( main.setMyCoor );
         if( main.loopGetLocation ){ //allows you to break the link
             setInterval( getLocation, 3000); //get location every 3 seconds

@@ -136,5 +136,21 @@
                 "name": "walk"
             }
         ]
+    },
+    {
+        "name": "test",
+        "id": "test",
+        "imgUrl": "assets/imgs/capilano.jpg",
+        "difficulty": "",
+        "description": "",
+        "km": "",
+        "hours": "",
+        "location":
+            {
+                "lat": "",
+                "lng": ""
+            },
+        "options": [
+        ]
     }
 ]
