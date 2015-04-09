@@ -184,6 +184,43 @@ sklad.open(dbName, {
           });
     };
 
+
+    //Trail States
+    main.makeTrailStart = function() {
+      // make the current trail start
+      main.trail.start = true;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("started trail " + theTrail.name );
+      });
+    };
+
+    main.makeTrailHiking = function() {
+      // make the current trail start
+      main.trail.hiking = true;
+      main.trail.start = false;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("hiking trail " + theTrail.name );
+      });
+    };
+
+    main.makeTrailDone = function() {
+      // make the current trail start
+      main.trail.done = true;
+      main.trail.hiking = false;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("done trail " + theTrail.name );
+      });
+    };
+
     main.deleteUsingTrails = function() {
       // delete the trail you are using
       conn
@@ -265,6 +302,7 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
+              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
@@ -288,6 +326,7 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
+              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
@@ -477,11 +516,15 @@ $(function(){
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
 
-        if( d > 1000 ){
-          console.log("you are " + d +" away from the trail");
+        if( d < 1000 ){
+          if( main.trail.hiking == false && main.trail.start == false ){ //if you haven't already started...
+            main.makeTrailStart(); //start
+          }else if ( main.trail.hiking == true ){ //if you are hiking then finish the hike
+            main.makeTrailDone(); //end 
+          }
+        }else if( main.trail.start == true ){
+            main.makeTrailHiking(); //hike
         }
-
-        console.log("you are " + d +" m away from the trail");
       }
     }
 
@@ -503,6 +546,6 @@ $(function(){
     main.getLocationAndSetCenter = function(){
         /* set the center the first time */
         main.geoLocate( main.setCenterMap );
-        setInterval( getLocation, 3000); //get location every 3 seconds
+        //setInterval( getLocation, 3000); //get location every 3 seconds
     };
 })
