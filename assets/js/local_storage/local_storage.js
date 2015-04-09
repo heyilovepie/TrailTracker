@@ -2,7 +2,9 @@
                   storing data based on person
 ==================================================================*/
 var dbName = 'ProfileData9';
-main.name = "default";
+main.me = {};
+main.trail = {};
+main.me.name = "default";
  
  //open database
 sklad.open(dbName, {
@@ -51,29 +53,54 @@ sklad.open(dbName, {
         $nameTitle.addClass("hidden");
         $startPage.removeClass("hidden");
       }else{
-        $nameTitle.text(main.name);
+        $nameTitle.text(main.me.name);
         $nameTitle.removeClass("hidden");
         $startPage.addClass("hidden");
       }
     }
 
     main.trailPopup = function( theTrailData ){
-      console.log("trailpopup");
       $trail_icon.attr("src", theTrailData.imgUrl); //makes the trail-icon be the trail you are on
       $trail_name.text( theTrailData.name );
       $trail_button.attr("href", "#/catalogue/" + theTrailData.id ); //makes the trail-icon be the trail you are on
     }
 
     main.addMarker = function( theTrailData ){
-      main.map.addMarker({
+      main.trail.marker = {
         lat: parseFloat( theTrailData.location.lat ),
         lng: parseFloat( theTrailData.location.lng ),
-        title: theTrailData.user,
+        title: theTrailData.name,
+        icon: "assets/imgs/marker.png",
         click: function(e) {
           $('.catch.trail').removeClass("hidden");
           $('#trail-page').removeClass("hidden");
         }
-      });
+      };
+      main.map.addMarker(main.trail.marker);
+    };
+
+    main.addMe = function( me ){
+      main.me.marker = {
+        lat: parseFloat( me.location.lat ),
+        lng: parseFloat( me.location.lng ),
+        title: me.name,
+        icon: "assets/imgs/me.png",
+        /*
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillOpacity: 0.5,
+          fillColor: 'ff0000',
+          strokeOpacity: 1.0,
+          strokeColor: 'fff000',
+          strokeWeight: 3.0,
+          scale: 20 
+        },
+        */
+        click: function(e) {
+          $("#menu #menu-profile").trigger("show"); //show profile menu
+        }
+      };
+      main.map.addMarker( main.me.marker );
     };
 
     main.findUsingTrail = function() {
@@ -84,7 +111,7 @@ sklad.open(dbName, {
           }, function(err, data) {
             if (err) { return console.error(err); }
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.done == false && theTrail.value.user == main.name ){ //if you have not finished the trail
+              if( theTrail.value.done == false && theTrail.value.user == main.me.name ){ //if you have not finished the trail
                   main.trail = theTrail.value; //sets global to the trail data
                   main.trailPopup( main.trail ); //add visuals to popup
                   main.addMarker( main.trail ); //add a marker
@@ -104,7 +131,7 @@ sklad.open(dbName, {
             var hasName = false;
             data.nameData.forEach(function(theName){
               if(theName.value.using){
-                main.name = theName.value.name;
+                main.me.name = theName.value.name;
                 hasName = true;
                 main.findUsingTrail();
                 return;
@@ -114,7 +141,7 @@ sklad.open(dbName, {
             if( hasName == false ){ //there were no names that are being used last.
               $showName.text("First time in TrailTracker? Please pick a Username");
             }else{ //there was a name that you are using.
-              $showName.text("The last user was "+ main.name + ". Is that you?");
+              $showName.text("The last user was "+ main.me.name + ". Is that you?");
             }
           });
     }
@@ -148,7 +175,7 @@ sklad.open(dbName, {
 
             var hasName = false;
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.user == main.name && theTrail.value.done == false ){
+              if( theTrail.value.user == main.me.name && theTrail.value.done == false ){
                 theTrail.value.done = true;
                 conn.upsert('profileData', theTrail.value, function(err){
                       if(err){ return console.error(); }
@@ -169,7 +196,7 @@ sklad.open(dbName, {
             if (err) { return console.error(err); }
 
             data.profileData.forEach(function(theTrail){
-              if( theTrail.value.done == false && theTrail.value.user == main.name ){ //if you have not finished the trail
+              if( theTrail.value.done == false && theTrail.value.user == main.me.name ){ //if you have not finished the trail
                 conn.delete('profileData', theTrail.value.timestamp, function(err){ //delete it
                       if(err){ return console.error(); }
                       updateRows(conn);
@@ -195,7 +222,7 @@ sklad.open(dbName, {
           $list.empty(); //make the list varaible have no variables because you will fill it
               
           myData.profileData.forEach(function(data){ //for each in to do list add text to the element
-              if(data.value.user == main.name){ //if you have the right name
+              if(data.value.user == main.me.name){ //if you have the right name
                 var $li = $(document.createElement('li'));
                 if(data.value.done){
                   main.trail = data.value;
@@ -239,7 +266,7 @@ sklad.open(dbName, {
             location    : trailData.location,
             options     : trailData.options, 
             //add additional info
-            user        : main.name,
+            user        : main.me.name,
             done        : false,
             timestamp   : Date.now()
           }
@@ -277,12 +304,12 @@ sklad.open(dbName, {
           if(err.message == "Key already exists in the object store."){ //already have this person :)
             conn.upsert('nameData', thisData.nameData, function(err){ //replace the data for the name 
                     if(err){ return console.error(); }
-                    $showName.text("Welcome back " + main.name + "!");
+                    $showName.text("Welcome back " + main.me.name + "!");
                   });
           }else{ return console.error(err); } //if the error is not bc 2 same names then return
         }
-        main.name = $name.val().trim();
-        $showName.text("Hello " + main.name + ". Welcome to TrailTracker!");
+        main.me.name = $name.val().trim();
+        $showName.text("Hello " + main.me.name + ". Welcome to TrailTracker!");
         $name.val('');
         main.notUsingTrails();
         main.findUsingTrail();
@@ -299,17 +326,17 @@ sklad.open(dbName, {
           if (err) { return console.error(err); }
 
           data.profileData.forEach(function(theTrail){ //for each trail
-            if( theTrail.value.user == main.name ){ //if the trail is this user's
+            if( theTrail.value.user == main.me.name ){ //if the trail is this user's
               conn.delete('profileData', theTrail.value.timestamp, function(err){ //delete it
                     if(err){ return console.error(); }
               });
             }
           });
 
-          conn.delete('nameData', main.name, function(err){ //delete the name
+          conn.delete('nameData', main.me.name, function(err){ //delete the name
             if(err){ return console.error(); }
-            $showName.text("Everything from the user " + main.name + " is gone!");
-            main.name = "default";
+            $showName.text("Everything from the user " + main.me.name + " is gone!");
+            main.me.name = "default";
             updateRows(conn);
           });
         });
@@ -323,16 +350,16 @@ sklad.open(dbName, {
             }
       });
       $showName.text("Everything is gone!");
-      main.name = "default";
+      main.me.name = "default";
       updateRows(conn);
     }); //end of clear
 */
 
     $ok.click(function(){
-      if(main.name != "default"){
+      if(main.me.name != "default"){
         setStart(false);
         setTimeout(function(){
-            $showName.text("You are " + main.name + "...right?");
+            $showName.text("You are " + main.me.name + "...right?");
         }, 150);
       }else{
         $showName.text("Please choose a Username!");
@@ -346,5 +373,53 @@ sklad.open(dbName, {
     //init
     findName(conn);
     updateRows(conn);
+    console.log("data stuff");
+    main.loopGetLocation = true;
+    main.getLocationAndSetCenter();
+    console.log("mapstuff");
   });
 });
+
+main.geoLocate = function( passedFunction ){
+    GMaps.geolocate({
+      success: function(position) {
+        //set global variables
+        main.me.location = {};
+        main.me.location.lat =  position.coords.latitude;
+        main.me.location.lng =  position.coords.longitude;
+        //console.log( "This location is " + main.location.lat + " lat by " + main.location.lng + " lng." );
+        passedFunction();
+        console.log("set main.location");
+      },
+      error: function(error) {
+        alert('Geolocation failed: '+error.message);
+      },
+      not_supported: function() {
+        alert("Your browser does not support geolocation");
+      },
+      always: function() {
+      }
+    });
+};
+
+$(function(){
+      main.setCenterMap = function(){
+        /* set the center of the map to  be your location */
+        main.map.setCenter(main.me.location.lat, main.me.location.lng);
+        main.addMe( main.me );
+    }
+
+    function getLocation(){
+        var x = function(){};
+        main.geoLocate( x );
+        if( main.loopGetLocation ){ //allows you to break the link
+            setInterval( getLocation, 3000); //get location every 3 seconds
+        }
+    };
+
+    main.getLocationAndSetCenter = function(){
+        /* set the center the first time */
+        main.geoLocate( main.setCenterMap );
+        //setInterval( getLocation, 3000); //get location every 3 seconds
+    };
+})
