@@ -114,7 +114,7 @@ sklad.open(dbName, {
               if( theTrail.value.done == false && theTrail.value.user == main.me.name ){ //if you have not finished the trail
                   main.trail = theTrail.value; //sets global to the trail data
                   main.trailPopup( main.trail ); //add visuals to popup
-                  main.addMarker( main.trail ); //add a marker
+                  main.addMarker( main.trail ); //add a marker ( also adds marker data to main.trail )
               }
             });
           });
@@ -221,24 +221,23 @@ sklad.open(dbName, {
         ///UPDATE VISUALS
           $list.empty(); //make the list varaible have no variables because you will fill it
               
-          myData.profileData.forEach(function(data){ //for each in to do list add text to the element
-              if(data.value.user == main.me.name){ //if you have the right name
+          myData.profileData.forEach(function( theTrail ){ //for each in to do list add text to the element
+              if( theTrail.value.user == main.me.name ){ //if you have the right name
                 var $li = $(document.createElement('li'));
-                if(data.value.done){
-                  main.trail = data.value;
+                if( theTrail.value.done ){
                   $li.css({'text-decoration' : 'line-through'})
                 }
                 else{
                   $li.css({'text-decoration' : 'none'})
                 }
 
-                $li.text(data.value.name);
+                $li.text( theTrail.value.name );
 
                 $li.click(function(){
-                  if( data.value.done == false ){
-                    data.value.done = true; //makes variable done the opposite.
+                  if( theTrail.value.done == false ){
+                    theTrail.value.done = true; //makes variable done the opposite.
                     //then change the value of done in the conn
-                    conn.upsert('profileData', data.value, function(err){
+                    conn.upsert('profileData', theTrail.value, function(err){
                       if(err){ return console.error(); }
                       updateRows(conn); 
                     });
@@ -272,11 +271,11 @@ sklad.open(dbName, {
           }
         ]
       };
-      main.trail = thisData.profileData[0];
-      main.trailPopup( main.trail ); //add visuals to popup
       main.deleteUsingTrails(conn); //delete trails that are being used
-      main.addMarker( main.trail );
-      conn.insert(thisData, function (err, insertedKeys) {
+      main.trail = thisData.profileData[0]; //set the trail to be this one 
+      main.trailPopup( main.trail ); //add visuals to popup menu
+      main.addMarker( main.trail ); // add the new marker at this location
+      conn.insert(thisData, function (err, insertedKeys) { //insert data into local storage
         if (err) { return console.error(err); }
         updateRows(conn);
       })
@@ -308,13 +307,17 @@ sklad.open(dbName, {
                   });
           }else{ return console.error(err); } //if the error is not bc 2 same names then return
         }
-        main.me.name = $name.val().trim();
         $showName.text("Hello " + main.me.name + ". Welcome to TrailTracker!");
-        $name.val('');
-        main.notUsingTrails();
-        main.findUsingTrail();
+        $name.val(''); //show no text in the input bar 
+        var loc = main.me.location; //save location of you to local var
+        main.trail = {}; //reset trail
+        main.me = thisData.nameData[0]; //set main.me
+        main.me.location = loc; //reset location
+        main.geoLocate( main.setCenterMap );
+        main.addMe ( main.me ); //add marker for me
+        main.notUsingTrails(); //stop using all trails
+        main.findUsingTrail(); //find the trail that you are using now
         updateRows(conn);
-        main.setCenterMap(); //sets the center of the map to your location
       })
     }); //end of $add_name
 
@@ -336,7 +339,9 @@ sklad.open(dbName, {
           conn.delete('nameData', main.me.name, function(err){ //delete the name
             if(err){ return console.error(); }
             $showName.text("Everything from the user " + main.me.name + " is gone!");
-            main.me.name = "default";
+            //reset global variables :)
+            main.me = {};
+            main.trail = {};
             updateRows(conn);
           });
         });
@@ -373,23 +378,24 @@ sklad.open(dbName, {
     //init
     findName(conn);
     updateRows(conn);
-    console.log("data stuff");
     main.loopGetLocation = true;
     main.getLocationAndSetCenter();
-    console.log("mapstuff");
   });
 });
+
+/*===================================
+            MAP STUFF
+=====================================*/
 
 main.geoLocate = function( passedFunction ){
     GMaps.geolocate({
       success: function(position) {
         //set global variables
-        main.me.location = {};
+        main.me.location = {}; //reset the location (or init)
         main.me.location.lat =  position.coords.latitude;
         main.me.location.lng =  position.coords.longitude;
-        //console.log( "This location is " + main.location.lat + " lat by " + main.location.lng + " lng." );
+        //console.log( "This location is " + main.me.location.lat + " lat by " + main.me.location.lng + " lng." );
         passedFunction();
-        console.log("set main.location");
       },
       error: function(error) {
         alert('Geolocation failed: '+error.message);

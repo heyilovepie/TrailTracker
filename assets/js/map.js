@@ -148,6 +148,9 @@ var bwStyles = [
     }
 ]
 
+
+//NOTE: other map stuff in local_storage.js as it interacts with those elements
+
 $(document).ready(function(){
     main.map = new GMaps({
         div: '#map',
