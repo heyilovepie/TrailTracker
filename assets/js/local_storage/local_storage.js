@@ -45,7 +45,9 @@ sklad.open(dbName, {
         $done_route   = $(".done-route"),
         $trail_icon   = $(".trail-icon"),
         $trail_name   = $(".name-of-trail"),
-        $trail_button = $(".go-to-trail");
+        $trail_button = $(".go-to-trail"),
+        $deleteRoute  = $('.delete-route'),
+        $doneRoute    = $('.done-route');
 
     function setStart(bool){
       if(bool == true){
@@ -202,6 +204,42 @@ sklad.open(dbName, {
             });
           });
     };
+
+        //Trail States
+    main.makeTrailStart = function() {
+      // make the current trail start
+      main.trail.start = true;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("started trail " + theTrail.name );
+      });
+    };
+
+    main.makeTrailHiking = function() {
+      // make the current trail start
+      main.trail.hiking = true;
+      main.trail.start = false;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("hiking trail " + theTrail.name );
+      });
+    };
+
+    main.makeTrailDone = function() {
+      // make the current trail start
+      main.trail.done = true;
+      main.trail.hiking = false;
+      var theTrail = main.trail;
+      theTrail.marker = undefined;
+      conn.upsert('profileData', theTrail, function(err){
+            if(err){ return console.error(); }
+            console.log("done trail " + theTrail.name );
+      });
+    };
  
     function updateRows(conn) {
       ///updates the list 
@@ -265,12 +303,12 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
+              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
           ]
         };
-        console.log(thisData.profileData[0].location);
       } else {
         var thisData = {
           profileData: [
@@ -288,6 +326,7 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
+              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
@@ -302,7 +341,13 @@ sklad.open(dbName, {
       main.addMe ( main.me ); //add marker for me
       main.map.setCenter(main.trail.location.lat, main.trail.location.lng); //set the map to face the trail
       conn.insert(thisData, function (err, insertedKeys) { //insert data into local storage
-        if (err) { return console.error(err); }
+        if (err) { 
+          if(err.message == "Failed to execute 'add' on 'IDBObjectStore': An object could not be cloned."){ 
+            console.log("duplicate add: ignore error"); 
+          }else{
+            return console.error(err); 
+          }
+        } //end of error
         updateRows(conn);
       })
     };
@@ -412,6 +457,23 @@ sklad.open(dbName, {
         $startPage.removeClass("hidden");
     }); //end of $logout
 
+   $deleteRoute.click(function(){
+        //this goes to the local_storage.js file and deletes the current route
+        console.log("delete route");
+        main.deleteUsingTrails();
+        main.map.removeMarkers(); //remove all existing markers
+        main.addMe ( main.me ); //add marker for me
+        main.trail = {};
+    });
+
+    $doneRoute.click(function(){
+        //this goes to the local_storage.js file and finishes the current route
+        main.notUsingTrails();
+        main.map.removeMarkers(); //remove all existing markers
+        main.addMe ( main.me ); //add marker for me
+        main.trail = {};
+    });
+
     //init
     findName(conn);
     updateRows(conn);
@@ -424,31 +486,8 @@ sklad.open(dbName, {
             MAP STUFF
 =====================================*/
 
-main.geoLocate = function( passedFunction ){
-    GMaps.geolocate({
-      success: function(position) {
-        //set global variables
-        main.me.location = {}; //reset the location (or init)
-        main.me.location.lat =  position.coords.latitude;
-        main.me.location.lng =  position.coords.longitude;
-        //console.log( "This location is " + main.me.location.lat + " lat by " + main.me.location.lng + " lng." );
-        passedFunction();
-      },
-      error: function(error) {
-        alert('Geolocation failed: '+error.message);
-      },
-      not_supported: function() {
-        alert("Your browser does not support geolocation");
-      },
-      always: function() {
-      }
-    });
-};
-
 $(function(){
-    main.loop = function(){
 
-    }
     main.setCenterMap = function(){
         /* set the center of the map to  be your location */
         main.map.setCenter(main.me.location.lat, main.me.location.lng);
@@ -457,6 +496,27 @@ $(function(){
 
     radians = function( number ){
       return number * Math.PI / 180;
+    };
+
+    main.geoLocate = function( passedFunction ){
+      GMaps.geolocate({
+        success: function(position) {
+          //set global variables
+          main.me.location = {}; //reset the location (or init)
+          main.me.location.lat =  position.coords.latitude;
+          main.me.location.lng =  position.coords.longitude;
+          //console.log( "This location is " + main.me.location.lat + " lat by " + main.me.location.lng + " lng." );
+          passedFunction();
+        },
+        error: function(error) {
+          alert('Geolocation failed: '+error.message);
+        },
+        not_supported: function() {
+          alert("Your browser does not support geolocation");
+        },
+        always: function() {
+        }
+      });
     };
 
     main.loop = function(){
@@ -483,11 +543,15 @@ $(function(){
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
 
-        if( d > 1000 ){
-          console.log("you are " + d +" away from the trail");
+        if( d < 1000 ){
+          if( main.trail.hiking == false && main.trail.start == false ){ //if you haven't already started...
+            main.makeTrailStart(); //start
+          }else if ( main.trail.hiking == true ){ //if you are hiking then finish the hike
+            main.makeTrailDone(); //end 
+          }
+        }else if( main.trail.start == true ){
+            main.makeTrailHiking(); //hike
         }
-
-        console.log("you are " + d +" m away from the trail");
       }
 
       if( main.loopGetLocation ){ //allows you to break the link
