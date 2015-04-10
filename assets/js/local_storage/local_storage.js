@@ -1,7 +1,7 @@
 /* ================================================================
                   storing data based on person
 ==================================================================*/
-var dbName = 'ProfileData9';
+var dbName = 'ProfileData10';
 main.me = {};
 main.trail = {};
  
@@ -56,13 +56,13 @@ sklad.open(dbName, {
         $nameTitle.removeClass("hidden");
         $startPage.addClass("hidden");
       }
-    }
+    };
 
     main.trailPopup = function( theTrailData ){
       $trail_icon.attr("src", theTrailData.imgUrl); //makes the trail-icon be the trail you are on
       $trail_name.text( theTrailData.name );
       $trail_button.attr("href", "#/catalogue/" + theTrailData.id ); //makes the trail-icon be the trail you are on
-    }
+    };
 
     main.addMarker = function( theTrailData ){
       var trailMarker = {
@@ -143,7 +143,7 @@ sklad.open(dbName, {
               $showName.text("The last user was "+ main.me.name + ". Is that you?");
             }
           });
-    }
+    };
 
     function notUsingNames(conn) {
       // stop all other names from being used at this time
@@ -281,7 +281,7 @@ sklad.open(dbName, {
               }
           });
         });
-    }
+    };
 
     main.addTrail = function (trailData) {
       // this method is called from the trail controller when the check button is pressed
@@ -308,7 +308,6 @@ sklad.open(dbName, {
             }
           ]
         };
-        console.log(thisData.profileData[0].location);
       } else {
         var thisData = {
           profileData: [
@@ -395,7 +394,7 @@ sklad.open(dbName, {
       main.notUsingTrails(); //stop using all trails
       main.findUsingTrail(); //find the trail that you are using now and add the marker
       updateRows(conn);
-    }
+    };
 
     $clear.click(function(){
       conn
@@ -452,6 +451,7 @@ sklad.open(dbName, {
     }); //end of $logout
 
     //init
+    console.log("init");
     findName(conn);
     updateRows(conn);
     main.loopGetLocation = true;
@@ -515,7 +515,6 @@ $(function(){
                 Math.sin(Δλ/2) * Math.sin(Δλ/2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
-
         if( d < 1000 ){
           if( main.trail.hiking == false && main.trail.start == false ){ //if you haven't already started...
             main.makeTrailStart(); //start
@@ -532,7 +531,7 @@ $(function(){
         /* set the center of the map to  be your location */
         var latlng = new google.maps.LatLng( main.me.location.lat , main.me.location.lng );
         main.me.marker.setPosition( latlng );
-        main.checkStartTrail();
+        main.checkStartTrail(); //check your location with the trail
     }
 
     function getLocation(){
@@ -546,6 +545,6 @@ $(function(){
     main.getLocationAndSetCenter = function(){
         /* set the center the first time */
         main.geoLocate( main.setCenterMap );
-        //setInterval( getLocation, 3000); //get location every 3 seconds
+        setInterval( getLocation, 3000); //get location every 3 seconds
     };
 })
