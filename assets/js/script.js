@@ -1,16 +1,20 @@
 $(function(){
 	var 
-        menuOptions = $("#menu #menu-options"),
-        menuProfile = $("#menu #menu-profile"),
-		menuOptionsToggle = $('#menu #menu-options .toggle button'),
-        menuProfileToggle = $('#menu #toggle-profile button'),
-		menuCatch = $('#menu .catch'),
-        typeCatch = $('.type.catch'),
-        typePage = $('#type-page'),
-        trailPage = $('#trail-page'),
-        trailCatch = $('.trail.catch');
-		newRoute = $('#new-route'),
-		optionsPopup = $("#type-page");
+        menuOptions        = $("#menu #menu-options"),
+        menuProfile        = $("#menu #menu-profile"),
+
+		menuOptionsToggle  = $('#menu #menu-options .toggle button'),
+        menuProfileToggle  = $('#menu #toggle-profile button'),
+
+        newRoute           = $('#new-route');
+
+		menuCatch          = $('#menu .catch'),
+        typeCatch          = $('.type.catch'),
+        trailCatch         = $('.trail.catch'),
+
+        startPage          = $("#start-page"),
+        typePage           = $('#type-page'),
+        trailPage          = $('#trail-page'),
 
     /*==========================================
                     CLICKING
@@ -31,13 +35,13 @@ $(function(){
     });
 
     menuProfile.on("toggle", function(){
-        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
-            menuProfileToggle.removeClass("open")
+        if( menuProfile.hasClass("open") && menuProfileToggle.hasClass("open") ){ //if you are open
+            menuProfileToggle.removeClass("open");
             setTimeout(function(){
                     menuProfile.removeClass("open");
                     menuProfileToggle.parent().removeClass("open");
             }, 600);
-        }else if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
+        }else if ( menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false ){ //if you closed
             menuProfile.addClass("open");
             menuProfileToggle.parent().addClass("open");
             setTimeout(function(){
@@ -45,7 +49,7 @@ $(function(){
             }, 600);
         }
     }).on("show", function(){
-        if (menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false){ //if you closed
+        if ( menuProfile.hasClass("open") == false && menuProfileToggle.hasClass("open") == false ){ //if you closed
             menuProfile.addClass("open");
             menuProfileToggle.parent().addClass("open");
             setTimeout(function(){
@@ -53,8 +57,9 @@ $(function(){
             }, 600);
         }
     }).on("hide", function(){
-        if(menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")){ //if you are open
-            menuProfileToggle.removeClass("open")
+        if( menuProfile.hasClass("open") && menuProfileToggle.hasClass("open") ){ //if you are open
+            menuProfileToggle.removeClass("open");
+            console.log("remove open class");
             setTimeout(function(){
                     menuProfile.removeClass("open");
                     menuProfileToggle.parent().removeClass("open");
@@ -118,29 +123,64 @@ $(function(){
         }
     });
 
+    var noPopups =  function(){
+        /* returns true if there are no popups */
+        if( startPage.hasClass("hidden") && typePage.hasClass("hidden") && trailPage.hasClass("hidden")) return true;
+        else return false;
+    };
+
+
     /*==========================================
                     CLICKING
     ============================================*/
 
-    /*
-    var menuOptionsH = new Hammer(menuOptions, { multiUser: true });
-    menuOptionsH.get('swipe').set({enable:true});
-    menuOptionsH.on('swipe', function(ev){
-        ev.preventDefault();
-        menuProfile.toggleClass("open");
+    var 
+        mProfile = document.getElementById("menu-profile"),
+        mOptions = document.getElementById("menu-options"),
+        mOptionsCatch = document.getElementById("options-catch");
+
+    //hammer elements
+    var 
+        profHammer = new Hammer(mProfile),
+        optHammer  = new Hammer(mOptions),
+        optCatchHammer  = new Hammer(mOptionsCatch);
+
+
+    // listen to events...
+    profHammer.on("panright", function(ev) {
+        //close profile menu
+        if( noPopups() ){
+            if((menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")) ){
+                ev.preventDefault();
+                menuProfileToggle.removeClass("open");
+                setTimeout(function(){
+                    menuProfile.removeClass("open");
+                    menuProfileToggle.parent().removeClass("open");
+                }, 600);
+            }
+        }
     });
-    */
 
-    function addHammer(el) {
-        var mc = new Hammer(el, { multiUser: true });
-        mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-        mc.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-        mc.get('pinch').set({ enable: true });
-        mc.get('rotate').set({ enable: true });
-
-        mc.on("swipe pan press pinch rotate tap doubletap", function (ev) {
-            ev.preventDefault();
-        });
-    }
+    //close option menu
+    optHammer.on("panleft", function(ev) {
+        if( noPopups() ){
+            if( menuOptions.hasClass( "open" ) ){
+                ev.preventDefault();
+                menuOptions.removeClass("open");
+                menuOptions.children().removeClass("open");
+                menuCatch.addClass("hidden");
+            }
+        }
+    });
+    optCatchHammer.on("panleft", function(ev) {
+        if( noPopups() ){
+            if( menuOptions.hasClass( "open" ) ){
+                ev.preventDefault();
+                menuOptions.removeClass("open");
+                menuOptions.children().removeClass("open");
+                menuCatch.addClass("hidden");
+            }
+        }
+    });
 });
 
