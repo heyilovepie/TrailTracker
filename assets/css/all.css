@@ -186,7 +186,7 @@ li{
     height: 100%;
 	width: 100%;
     right: -100%;
-    padding: 0 10%;
+    padding: 0 5%;
     overflow: hidden;
 }
 
@@ -199,13 +199,26 @@ li{
     overflow: hidden;
 }
 
-#menu #menu-profile.open .profile{
-    height: 100%;
+#menu #menu-profile .profile .left-container{
+	display: inline-block;
+	height: 100%;
+	width: 65%;
 }
+
+#menu #menu-profile .profile .right-container{
+	display: inline-block;
+	width: 100px;
+	height: 100%;
+}
+
 
 #menu #menu-profile .profile .title{
     height: 60px;
-    top: 0;
+    margin-top: 70px;
+}
+
+#menu #menu-profile .profile #existing-trail{
+	margin-top: 10px;
 }
 
 #menu #menu-profile .profile .title h1{
@@ -277,6 +290,12 @@ li{
 	transition: all .7s ease-in;
 }
 
+#menu #toggle-profile button input{
+	/* set w/h to be the button.open size */
+	height: 90px;
+	width: 90px;
+}
+
 /*when profile is open but not button*/
 #menu #toggle-profile.open button{
 	margin-right: 200px;
@@ -296,15 +315,7 @@ li{
 	transition: all .7s ease-in;
 }
 
-#menu #profile #menu-profile .title{
-	width: 80%;
-}
-
 #menu #profile #menu-profile .list-of-trails{
-	width: 70%;
-	height: 70%;
-	/*background-color: #00413c;*/
-	border-radius: 5px;
 }
 
 #menu #profile #menu-profile .logout{
@@ -479,6 +490,14 @@ li{
 	}	
 	.popup-page .options .option {
 		margin: 6% 0;
+	}
+
+	#menu #menu-profile .profile .left-container{
+		width: 80%;
+	}
+		/*menu profile   */
+	#menu #menu-profile{
+	    padding: 0 20%;
 	}
 
 	/* Start screen */

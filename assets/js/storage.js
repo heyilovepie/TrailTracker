@@ -243,6 +243,11 @@ sklad.open(dbName, {
  
     function updateRows(conn) {
       ///updates the list 
+      if ( main.trail.name != undefined ){
+        $('#existing-trail').text( "The current trail is: " + main.trail.name );
+      }else{
+        $('#existing-trail').text( "You have no current trail" );
+      }
       conn
         .get({
           profileData: {description: sklad.DESC, index: 'timestamp_search'} //gets only the components with the right name
