@@ -1,6 +1,5 @@
 #list{
 	top: 60px;
-	transition: all .7s ease-in;
 }
 
 #list-container{
@@ -8,6 +7,7 @@
 	width: 100%;
 	top: 60px;
 	background-color:#EFEFEF;
+	transition: all .4s ease-in;
 }
 
 #list-container #trails{

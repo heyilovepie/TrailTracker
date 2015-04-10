@@ -123,7 +123,7 @@ $(function(){
         }
     });
 
-    var noPopups =  function(){
+    main.noPopups =  function(){
         /* returns true if there are no popups */
         if( startPage.hasClass("hidden") && typePage.hasClass("hidden") && trailPage.hasClass("hidden")) return true;
         else return false;
@@ -149,7 +149,7 @@ $(function(){
     // listen to events...
     profHammer.on("panright", function(ev) {
         //close profile menu
-        if( noPopups() ){
+        if( main.noPopups() ){
             if((menuProfile.hasClass("open") && menuProfileToggle.hasClass("open")) ){
                 ev.preventDefault();
                 menuProfileToggle.removeClass("open");
@@ -163,7 +163,7 @@ $(function(){
 
     //close option menu
     optHammer.on("panleft", function(ev) {
-        if( noPopups() ){
+        if( main.noPopups() ){
             if( menuOptions.hasClass( "open" ) ){
                 ev.preventDefault();
                 menuOptions.removeClass("open");
@@ -173,7 +173,7 @@ $(function(){
         }
     });
     optCatchHammer.on("panleft", function(ev) {
-        if( noPopups() ){
+        if( main.noPopups() ){
             if( menuOptions.hasClass( "open" ) ){
                 ev.preventDefault();
                 menuOptions.removeClass("open");

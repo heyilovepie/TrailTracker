@@ -555,7 +555,7 @@ $(function(){
       }
 
       if( main.loopGetLocation ){ //allows you to break the link
-            //setInterval( getLocation, 5000); //get location every 3 seconds
+            setInterval( getLocation, 5000); //get location every 3 seconds
         }
     };
 
