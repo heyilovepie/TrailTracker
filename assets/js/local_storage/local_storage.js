@@ -184,43 +184,6 @@ sklad.open(dbName, {
           });
     };
 
-
-    //Trail States
-    main.makeTrailStart = function() {
-      // make the current trail start
-      main.trail.start = true;
-      var theTrail = main.trail;
-      theTrail.marker = undefined;
-      conn.upsert('profileData', theTrail, function(err){
-            if(err){ return console.error(); }
-            console.log("started trail " + theTrail.name );
-      });
-    };
-
-    main.makeTrailHiking = function() {
-      // make the current trail start
-      main.trail.hiking = true;
-      main.trail.start = false;
-      var theTrail = main.trail;
-      theTrail.marker = undefined;
-      conn.upsert('profileData', theTrail, function(err){
-            if(err){ return console.error(); }
-            console.log("hiking trail " + theTrail.name );
-      });
-    };
-
-    main.makeTrailDone = function() {
-      // make the current trail start
-      main.trail.done = true;
-      main.trail.hiking = false;
-      var theTrail = main.trail;
-      theTrail.marker = undefined;
-      conn.upsert('profileData', theTrail, function(err){
-            if(err){ return console.error(); }
-            console.log("done trail " + theTrail.name );
-      });
-    };
-
     main.deleteUsingTrails = function() {
       // delete the trail you are using
       conn
@@ -302,7 +265,6 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
-              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
@@ -326,7 +288,6 @@ sklad.open(dbName, {
               //add additional info
               user        : main.me.name,
               started     : false,
-              hiking      : false,
               done        : false,
               timestamp   : Date.now()
             }
@@ -485,6 +446,9 @@ main.geoLocate = function( passedFunction ){
 };
 
 $(function(){
+    main.loop = function(){
+
+    }
     main.setCenterMap = function(){
         /* set the center of the map to  be your location */
         main.map.setCenter(main.me.location.lat, main.me.location.lng);
@@ -495,9 +459,12 @@ $(function(){
       return number * Math.PI / 180;
     };
 
-    main.checkStartTrail = function(){
+    main.loop = function(){
       /* find out of the person is close enough to the start of the trail */
-      if( main.trail.location != undefined && main.trail.location.lat != undefined ){
+      var latlng = new google.maps.LatLng( main.me.location.lat , main.me.location.lng );
+      main.me.marker.setPosition( latlng );
+
+      if( main.trail.location != undefined && main.trail.location.lat != undefined ){ //if you have a 
         var lat1 = parseFloat( main.me.location.lat );
         var lat2 = parseFloat( main.trail.location.lat );
         var lng1 = parseFloat( main.me.location.lng );
@@ -516,36 +483,26 @@ $(function(){
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         var d = R * c;
 
-        if( d < 1000 ){
-          if( main.trail.hiking == false && main.trail.start == false ){ //if you haven't already started...
-            main.makeTrailStart(); //start
-          }else if ( main.trail.hiking == true ){ //if you are hiking then finish the hike
-            main.makeTrailDone(); //end 
-          }
-        }else if( main.trail.start == true ){
-            main.makeTrailHiking(); //hike
+        if( d > 1000 ){
+          console.log("you are " + d +" away from the trail");
         }
-      }
-    }
 
-    main.setMyCoor = function(){
-        /* set the center of the map to  be your location */
-        var latlng = new google.maps.LatLng( main.me.location.lat , main.me.location.lng );
-        main.me.marker.setPosition( latlng );
-        main.checkStartTrail();
-    }
+        console.log("you are " + d +" m away from the trail");
+      }
+
+      if( main.loopGetLocation ){ //allows you to break the link
+            setInterval( getLocation, 5000); //get location every 3 seconds
+        }
+    };
 
     function getLocation(){
       /*gets the location but changes the coordinates of the marker instead of changing the location if the map */
-        main.geoLocate( main.setMyCoor );
-        if( main.loopGetLocation ){ //allows you to break the link
-            setInterval( getLocation, 3000); //get location every 3 seconds
-        }
+        main.geoLocate( main.loop );
     };
 
     main.getLocationAndSetCenter = function(){
         /* set the center the first time */
         main.geoLocate( main.setCenterMap );
-        //setInterval( getLocation, 3000); //get location every 3 seconds
+        setInterval( getLocation, 3000); //get location every 3 seconds
     };
 })
