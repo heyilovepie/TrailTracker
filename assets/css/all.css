@@ -195,7 +195,7 @@ li{
 }
 
 #menu #menu-profile .profile{
-    height: 100%;
+    /*height: 100%;*/
     overflow: hidden;
 }
 
@@ -423,7 +423,7 @@ li{
 }
 
 .popup-page .options .option{
-	margin: 9% 0;
+	margin: 9%;
 }
 
 .popup-page .option .button, .popup-page .option h4{
