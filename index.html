@@ -169,12 +169,12 @@
 
     <!--- the trail menu -->
     <div class="catch trail popup hidden"></div>
-    <div id="trail-page" class="popup-page hidden">
-        <h2 class="name-of-trail">name</h2>
-        <button>
-            <input class="icon trail-icon" type="image" src="assets/imgs/rice.jpg" alt="character-pic">
-        </button>
-        <div class="button">
+    <div id="trail-page" class="popup-page popup-pgtr hidden">
+        <h2 class="name-of-trail"><strong>name</strong></h2> 
+    
+        <img class="icon trail-icon" type="image" ng-src="{{type.imgUrl}}" alt="character-pic" id="trail-img">
+        
+        <div class="button button1">
             <a href="#/404" class="go-to-trail"><h4>See Trail</h4></a>
         </div>
         <div class="options">
