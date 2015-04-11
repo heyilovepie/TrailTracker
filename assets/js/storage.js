@@ -378,7 +378,6 @@ sklad.open(dbName, {
       main.geoLocate( main.setCenterMap );
       main.map.removeMarkers(); //remove all existing markers
       main.addMe ( main.me ); //add marker for me
-      main.notUsingTrails(); //stop using all trails
       main.findUsingTrail(); //find the trail that you are using now and add the marker
       updateRows(conn);
     }
