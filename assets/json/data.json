@@ -4,6 +4,7 @@
         "id": "quarryrock",
         "imgUrl": "assets/imgs/quarry.jpg",
         "difficulty": "Easy",
+        "lvl": 1,
         "description": "Just off the shores of scenic Deep Cove in North Vancouver sits a large rocky outcrop known as Quarry Rock (also known as Grey Rock in some hiking books).",
         "km": "3.8",
         "hours": "1.5",
@@ -23,6 +24,7 @@
         "id": "grousegrind",
         "imgUrl": "assets/imgs/grouse.jpg",
         "difficulty": "Difficult",
+        "lvl": 2,
         "description": "The Grouse Grind is Vancouver's most used trail and is renowned for its challenge in requiring physical strength and endurance in order to make it to the top.",
         "km": "2.9",
         "hours": "1.75",
@@ -42,6 +44,7 @@
         "id": "ricelake",
         "imgUrl": "assets/imgs/rice.jpg",
         "difficulty": "Easy",
+        "lvl": 1,
         "description": "Rice Lake is a calm, quiet lake located on the edge of the Lynn Headwaters Regional Park in North Vancouver. Just a short walk takes you around this lake that is full of life and natural beauty.",
         "km": "3",
         "hours": "1",
@@ -67,6 +70,7 @@
         "id": "thunderbirdridge",
         "imgUrl": "assets/imgs/thunderbird.jpg",
         "difficulty": "Easy",
+        "lvl": 1,
         "description": "Thunderbird Ridge is a relatively quick hike from the top of Grouse Mountain that offers scenic views of Crown Mountain, Kennedy Lake, and the city of Vancouver.",
         "km": "6",
         "hours": "2.5",
@@ -92,6 +96,7 @@
         "id": "stmark",
         "imgUrl": "assets/imgs/stmark.jpg",
         "difficulty": "Intermediate",
+        "lvl": 3,
         "description": "St. Mark's Summit is part of the Howe Sound Crest Trail that spans over 30km from Cypress to a point along the Sea to Sky Highway near Porteau Cove.",
         "km": "11",
         "hours": "5",
@@ -117,6 +122,7 @@
         "id": "mountseymour",
         "imgUrl": "assets/imgs/capilano.jpg",
         "difficulty": "Easy",
+        "lvl": 1,
         "description": "Just off the shores of scenic Deep Cove in North Vancouver sits a large rocky outcrop known as Quarry Rock (also known as Grey Rock in some hiking books).",
         "km": "15",
         "hours": "4",
@@ -135,22 +141,6 @@
             {
                 "name": "walk"
             }
-        ]
-    },
-    {
-        "name": "test",
-        "id": "test",
-        "imgUrl": "assets/imgs/capilano.jpg",
-        "difficulty": "",
-        "description": "",
-        "km": "",
-        "hours": "",
-        "location":
-            {
-                "lat": "",
-                "lng": ""
-            },
-        "options": [
         ]
     }
 ]

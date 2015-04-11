@@ -1,7 +1,24 @@
 <div id="list">
 	<div id="list-container">
-		<li ng-repeat="trail in data" id="trails">
-        	<a href="#/catalogue/{{trail.id}}" class="trail">{{trail.name}}</a>
+	<ul>
+		<li id="search" class="border">
+			<i class="fa fa-search" id="icon"></i>
+			<input ng-model="query" id="src" placeholder="ex. Grouse Grind">
+			<select ng-model="orderProp" id="opt">
+    		<option value="" disabled selected>SORT BY:</option>
+    		<option value="name">Alphabetical</option>
+    		<option value="lvl">Difficulty</option>
+  		</select>
+        </li>
+    </ul>
+
+    <ul>
+    	<li ng-repeat="trail in data | filter:query | orderBy:orderProp" id="trails" >
+        	<a href="#/catalogue/{{trail.id}}" class="trail">
+        		{{trail.name}}
+        	</a>
       	</li>
-	</div>
+      </ul>
+
+    </div>	
 </div>
