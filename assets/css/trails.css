@@ -76,5 +76,7 @@
 }
 
 @media only screen and (orientation: landscape) {
-
+	#trail img {
+	height: 0em;
+	}
 }

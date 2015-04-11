@@ -1,7 +1,7 @@
 /* ================================================================
                   storing data based on person
 ==================================================================*/
-var dbName = 'ProfileData10';
+var dbName = 'ProfileData9';
 main.me = {};
 main.trail = {};
  
