@@ -291,53 +291,28 @@ sklad.open(dbName, {
 
     main.addTrail = function (trailData) {
       // this method is called from the trail controller when the check button is pressed
-      if( trailData.name == "test" ){
-        var thisData = {
-          profileData: [
-            {
-              //add all info from the json file
-              name        : trailData.name,
-              id          : trailData.id,
-              imgUrl      : trailData.imgUrl,
-              difficulty  : trailData.difficulty,
-              description : trailData.description,
-              km          : trailData.km,
-              hours       : trailData.hours,
-              location    : main.me.location,
-              options     : trailData.options, 
-              //add additional info
-              user        : main.me.name,
-              started     : false,
-              hiking      : false,
-              done        : false,
-              timestamp   : Date.now()
-            }
-          ]
-        };
-      } else {
-        var thisData = {
-          profileData: [
-            {
-              //add all info from the json file
-              name        : trailData.name,
-              id          : trailData.id,
-              imgUrl      : trailData.imgUrl,
-              difficulty  : trailData.difficulty,
-              description : trailData.description,
-              km          : trailData.km,
-              hours       : trailData.hours,
-              location    : trailData.location,
-              options     : trailData.options, 
-              //add additional info
-              user        : main.me.name,
-              started     : false,
-              hiking      : false,
-              done        : false,
-              timestamp   : Date.now()
-            }
-          ]
-        };
-      }
+      var thisData = {
+        profileData: [
+          {
+            //add all info from the json file
+            name        : trailData.name,
+            id          : trailData.id,
+            imgUrl      : trailData.imgUrl,
+            difficulty  : trailData.difficulty,
+            description : trailData.description,
+            km          : trailData.km,
+            hours       : trailData.hours,
+            location    : trailData.location,
+            options     : trailData.options, 
+            //add additional info
+            user        : main.me.name,
+            started     : false,
+            hiking      : false,
+            done        : false,
+            timestamp   : Date.now()
+          }
+        ]
+      };
       main.map.removeMarkers(); //remove all existing markers
       main.deleteUsingTrails(conn); //delete trails that are being used
       main.trail = thisData.profileData[0]; //set the trail to be this one 
